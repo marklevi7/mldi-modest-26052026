@@ -822,15 +822,15 @@
     .close .cta-phone { padding: 16px 22px; font-size: 20px; }
   }
   .close .cta-phone {
-    background-image: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 45%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.12) 55%, transparent 60%);
-    background-size: 300% 100%;
-    background-position: 100% 0;
+    background-image: linear-gradient(105deg, transparent 0%, transparent 35%, rgba(255,255,255,0.15) 45%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0.15) 55%, transparent 65%, transparent 100%);
+    background-size: 400% 100%;
+    background-position: 150% 0;
     animation: cta-shimmer 4s ease-in-out infinite;
   }
   @keyframes cta-shimmer {
-    0%, 70%  { background-position: 100% 0; }
-    85%      { background-position: -100% 0; }
-    100%     { background-position: -100% 0; }
+    0%, 65%  { background-position: 150% 0; }
+    80%      { background-position: -50% 0; }
+    100%     { background-position: -50% 0; }
   }
   .cta-phone:focus-visible { outline: 2px solid var(--soft); outline-offset: 4px; }
   .close .mlc-mark { margin-top: clamp(40px, 6vw, 80px); }
