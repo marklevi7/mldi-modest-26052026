@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0c0c0c">
+<meta name="theme-color" content="#0d0c0b">
 <meta name="color-scheme" content="dark">
-<title>AI Employees — MLDI</title>
+<title>Digital Employees — MLDI</title>
 <style>
   :root {
-    --bg: #0c0c0c;
-    --text: #ffffff;
-    --soft: #dadada;
-    --muted: #9a9a9a;
-    --dim: #5e5e5e;
-    --faint: #2a2a2a;
-    --line: #1c1c1c;
-    --line-2: #262626;
+    --bg: #0d0c0b;
+    --text: #f5f2ef;
+    --soft: #d8d4cf;
+    --muted: #9a9691;
+    --dim: #787470;
+    --faint: #2a2825;
+    --line: #1d1b19;
+    --line-2: #272523;
   }
   *, *::before, *::after { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; height: 100%; background: var(--bg); }
@@ -41,8 +41,8 @@
     transition: opacity 220ms ease;
   }
   .slide.active { opacity: 1; visibility: visible; }
-  /* Slides that benefit from vertical centering (cover, Meet faces, closing) */
-  .slide.cover, .slide.meet, .slide.close {
+  /* Slides that benefit from vertical centering (cover, Meet faces, closing, short-content) */
+  .slide.cover, .slide.meet, .slide.close, .slide.vcenter {
     align-items: center;
     padding: clamp(28px, 6vw, 96px);
   }
@@ -90,11 +90,111 @@
   .center { text-align: center; }
   .stack > * + * { margin-top: clamp(16px, 2vw, 28px); }
 
-  /* COVER */
+  /* AURORA GLOW */
+  .aurora-bottom, .aurora-top {
+    position: absolute;
+    left: 0; right: 0;
+    height: 40%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .aurora-bottom {
+    bottom: -5%;
+    left: -10%; right: -10%;
+    background:
+      /* v111 base — spread fingers */
+      radial-gradient(ellipse 8% 95% at 12% 100%, rgba(80, 0, 160, 0.9) 0%, transparent 55%),
+      radial-gradient(ellipse 12% 70% at 20% 100%, rgba(100, 20, 190, 0.7) 0%, transparent 50%),
+      radial-gradient(ellipse 6% 85% at 30% 100%, rgba(60, 10, 150, 0.6) 0%, transparent 45%),
+      radial-gradient(ellipse 10% 100% at 38% 100%, rgba(70, 0, 200, 0.8) 0%, transparent 50%),
+      radial-gradient(ellipse 5% 55% at 48% 100%, rgba(40, 30, 140, 0.5) 0%, transparent 40%),
+      radial-gradient(ellipse 14% 80% at 60% 100%, rgba(20, 50, 200, 0.65) 0%, transparent 48%),
+      radial-gradient(ellipse 8% 95% at 72% 100%, rgba(25, 70, 230, 0.85) 0%, transparent 50%),
+      radial-gradient(ellipse 10% 65% at 82% 100%, rgba(30, 100, 255, 0.7) 0%, transparent 45%),
+      radial-gradient(ellipse 6% 80% at 90% 100%, rgba(40, 130, 255, 0.6) 0%, transparent 42%),
+      /* deep dark blobs between the bright fingers */
+      radial-gradient(ellipse 10% 60% at 16% 100%, rgba(20, 0, 60, 0.9) 0%, transparent 50%),
+      radial-gradient(ellipse 8% 50% at 34% 100%, rgba(15, 0, 50, 0.8) 0%, transparent 45%),
+      radial-gradient(ellipse 12% 45% at 52% 100%, rgba(10, 5, 40, 0.85) 0%, transparent 48%),
+      radial-gradient(ellipse 9% 55% at 68% 100%, rgba(5, 10, 50, 0.8) 0%, transparent 45%),
+      radial-gradient(ellipse 8% 40% at 86% 100%, rgba(8, 15, 55, 0.7) 0%, transparent 42%),
+      /* big horizontal washes */
+      radial-gradient(ellipse 50% 45% at 22% 95%, rgba(100, 0, 200, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 40% at 55% 98%, rgba(40, 30, 190, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 45% at 82% 95%, rgba(20, 80, 250, 0.35) 0%, transparent 55%);
+    filter: blur(35px);
+  }
+  .aurora-bottom::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 30%;
+    background:
+      radial-gradient(ellipse 6% 100% at 14% 100%, rgba(130, 0, 255, 0.95) 0%, transparent 50%),
+      radial-gradient(ellipse 8% 100% at 36% 100%, rgba(90, 0, 210, 0.85) 0%, transparent 45%),
+      radial-gradient(ellipse 5% 80% at 58% 100%, rgba(30, 50, 200, 0.7) 0%, transparent 40%),
+      radial-gradient(ellipse 7% 100% at 74% 100%, rgba(25, 80, 255, 0.95) 0%, transparent 48%),
+      radial-gradient(ellipse 5% 70% at 88% 100%, rgba(40, 140, 255, 0.75) 0%, transparent 42%);
+    filter: blur(12px);
+  }
+  .aurora-top {
+    top: -5%;
+    left: -10%; right: -10%;
+    transform: scaleY(-1);
+    background:
+      radial-gradient(ellipse 8% 95% at 12% 100%, rgba(80, 0, 160, 0.9) 0%, transparent 55%),
+      radial-gradient(ellipse 12% 70% at 20% 100%, rgba(100, 20, 190, 0.7) 0%, transparent 50%),
+      radial-gradient(ellipse 6% 85% at 30% 100%, rgba(60, 10, 150, 0.6) 0%, transparent 45%),
+      radial-gradient(ellipse 10% 100% at 38% 100%, rgba(70, 0, 200, 0.8) 0%, transparent 50%),
+      radial-gradient(ellipse 5% 55% at 48% 100%, rgba(40, 30, 140, 0.5) 0%, transparent 40%),
+      radial-gradient(ellipse 14% 80% at 60% 100%, rgba(20, 50, 200, 0.65) 0%, transparent 48%),
+      radial-gradient(ellipse 8% 95% at 72% 100%, rgba(25, 70, 230, 0.85) 0%, transparent 50%),
+      radial-gradient(ellipse 10% 65% at 82% 100%, rgba(30, 100, 255, 0.7) 0%, transparent 45%),
+      radial-gradient(ellipse 6% 80% at 90% 100%, rgba(40, 130, 255, 0.6) 0%, transparent 42%),
+      radial-gradient(ellipse 10% 60% at 16% 100%, rgba(20, 0, 60, 0.9) 0%, transparent 50%),
+      radial-gradient(ellipse 8% 50% at 34% 100%, rgba(15, 0, 50, 0.8) 0%, transparent 45%),
+      radial-gradient(ellipse 12% 45% at 52% 100%, rgba(10, 5, 40, 0.85) 0%, transparent 48%),
+      radial-gradient(ellipse 9% 55% at 68% 100%, rgba(5, 10, 50, 0.8) 0%, transparent 45%),
+      radial-gradient(ellipse 8% 40% at 86% 100%, rgba(8, 15, 55, 0.7) 0%, transparent 42%),
+      radial-gradient(ellipse 50% 45% at 22% 95%, rgba(100, 0, 200, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 40% at 55% 98%, rgba(40, 30, 190, 0.35) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 45% at 82% 95%, rgba(20, 80, 250, 0.35) 0%, transparent 55%);
+    filter: blur(35px);
+  }
+  .aurora-top::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 30%;
+    background:
+      radial-gradient(ellipse 6% 100% at 14% 100%, rgba(130, 0, 255, 0.95) 0%, transparent 50%),
+      radial-gradient(ellipse 8% 100% at 36% 100%, rgba(90, 0, 210, 0.85) 0%, transparent 45%),
+      radial-gradient(ellipse 5% 80% at 58% 100%, rgba(30, 50, 200, 0.7) 0%, transparent 40%),
+      radial-gradient(ellipse 7% 100% at 74% 100%, rgba(25, 80, 255, 0.95) 0%, transparent 48%),
+      radial-gradient(ellipse 5% 70% at 88% 100%, rgba(40, 140, 255, 0.75) 0%, transparent 42%);
+    filter: blur(12px);
+  }
+  .aurora-dim { opacity: 0.5; }
+  .aurora-soft.aurora-bottom {
+    background:
+      radial-gradient(ellipse 50% 55% at 22% 95%, rgba(90, 0, 180, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 50% at 55% 98%, rgba(40, 30, 180, 0.4) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 55% at 82% 95%, rgba(20, 80, 250, 0.4) 0%, transparent 55%);
+    filter: blur(60px);
+  }
+  .aurora-soft.aurora-bottom::after { display: none; }
+  .aurora-soft.aurora-top {
+    background:
+      radial-gradient(ellipse 50% 55% at 22% 95%, rgba(90, 0, 180, 0.45) 0%, transparent 60%),
+      radial-gradient(ellipse 55% 50% at 55% 98%, rgba(40, 30, 180, 0.4) 0%, transparent 55%),
+      radial-gradient(ellipse 45% 55% at 82% 95%, rgba(20, 80, 250, 0.4) 0%, transparent 55%);
+    filter: blur(60px);
+  }
+  .aurora-soft.aurora-top::after { display: none; }
   .cover .brand {
     color: var(--soft);
-    font-size: clamp(13px, 1.3vw, 16px);
-    letter-spacing: 0.18em;
+    font-size: clamp(22px, 2.6vw, 36px);
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: 600;
     margin-bottom: clamp(28px, 4vw, 56px);
@@ -185,9 +285,9 @@
     display: block;
   }
   .mlc-mark {
-    width: clamp(120px, 12vw, 180px);
+    width: clamp(120px, 15vw, 228px);
     height: auto;
-    aspect-ratio: 689 / 292;
+    aspect-ratio: 760 / 300;
     color: var(--text);
     display: block;
     margin: 0 auto;
@@ -220,6 +320,7 @@
     aspect-ratio: 32 / 48;
     color: var(--soft);
     display: block;
+    overflow: visible;
   }
 
   /* FAMILY ROW */
@@ -363,7 +464,7 @@
     margin: 0; color: var(--soft);
   }
   table caption { display: none; }
-  table th { display: none; }
+  table th { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   table td {
     padding: clamp(11px, 1.3vw, 18px) clamp(8px, 1vw, 16px);
     border-top: 1px solid var(--line);
@@ -519,7 +620,7 @@
     align-items: center;
     gap: clamp(10px, 1.2vw, 16px);
     padding: clamp(14px, 1.7vw, 22px) clamp(22px, 2.8vw, 36px);
-    border: 1px solid #2e2e2e;
+    border: 1px solid var(--faint);
     border-radius: clamp(12px, 1.2vw, 16px);
     background: transparent;
     color: var(--text);
@@ -592,15 +693,14 @@
     .meet h1 { font-size: clamp(64px, 17vw, 110px); }
     .meet .role { font-size: clamp(17px, 4.4vw, 24px); }
 
-    /* Family row becomes a 2x2 grid */
+    /* Family row stays single line on mobile */
     .family {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: clamp(22px, 5vw, 32px) clamp(28px, 7vw, 44px);
-      justify-items: center;
+      display: flex;
+      gap: clamp(18px, 5vw, 32px);
+      justify-content: center;
       align-items: end;
     }
-    .face-sm { width: clamp(86px, 22vw, 120px); }
+    .face-sm { width: clamp(56px, 16vw, 86px); }
 
     /* Eyebrow + mini-head row sits tighter */
     .eyebrow-row { gap: 10px; }
@@ -627,6 +727,15 @@
 
     /* Closing CTA: a little less air to keep it on one screen */
     .close .cta-phone { padding: 16px 22px; font-size: 20px; }
+  }
+  .cta-phone:focus-visible { outline: 2px solid var(--soft); outline-offset: 4px; }
+  .close .mlc-mark { margin-top: clamp(40px, 6vw, 80px); }
+  @media (max-width: 1024px) and (min-width: 761px) {
+    ol.steps { grid-template-columns: repeat(3, 1fr); row-gap: clamp(20px, 2.4vw, 28px); }
+    ol.steps::before { display: none; }
+  }
+  @media (max-width: 720px) {
+    .platforms { gap: clamp(14px, 3vw, 22px) clamp(22px, 5vw, 36px); }
   }
   @media (prefers-reduced-motion: reduce) {
     .slide, .progress > i { transition: none; }
@@ -666,19 +775,18 @@
       </g>
     </symbol>
 
-    <!-- TOM — pill head, round eyes, smile, message badge (sales follow-up) -->
+    <!-- TOM — pill head, round eyes, neutral mouth, message badge (sales follow-up) -->
     <symbol id="face-tom" viewBox="0 0 120 140">
       <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
         <line x1="60" y1="12" x2="60" y2="22"/>
         <rect x="18" y="22" width="84" height="78" rx="39"/>
-        <path d="M 48 80 Q 60 88 72 80">
-          <animate attributeName="d"
-            values="M 48 80 Q 60 88 72 80;M 48 80 Q 60 88 72 80;M 48 78 Q 60 92 72 78;M 48 80 Q 60 88 72 80"
-            keyTimes="0;0.4;0.55;1"
-            dur="1.6s" repeatCount="indefinite"/>
-        </path>
-        <line x1="18" y1="60" x2="10" y2="60"/>
-        <line x1="102" y1="60" x2="110" y2="60"/>
+        <line x1="48" y1="80" x2="72" y2="80"/>
+        <line x1="18" y1="60" x2="10" y2="60">
+          <animate attributeName="x2" values="10;10;6;10;10" keyTimes="0;0.3;0.5;0.7;1" dur="2.4s" repeatCount="indefinite"/>
+        </line>
+        <line x1="102" y1="60" x2="110" y2="60">
+          <animate attributeName="x2" values="110;110;114;110;110" keyTimes="0;0.3;0.5;0.7;1" dur="2.4s" repeatCount="indefinite"/>
+        </line>
         <circle cx="98" cy="30" r="9">
           <animate attributeName="r" values="9;9;11;9;9" keyTimes="0;0.45;0.55;0.7;1" dur="1.6s" repeatCount="indefinite"/>
         </circle>
@@ -778,1297 +886,19 @@
       </g>
     </symbol>
 
-    <!-- HALFTONE PATTERN LIBRARY -->
-    <symbol id="halftone-1" viewBox="0 0 84.0 27.0" fill="currentColor">
-<circle cx="0.00" cy="1.50" r="0.550"/>
-<circle cx="3.00" cy="1.50" r="0.550"/>
-<circle cx="6.00" cy="1.50" r="0.550"/>
-<circle cx="9.00" cy="1.50" r="0.550"/>
-<circle cx="12.00" cy="1.50" r="0.550"/>
-<circle cx="15.00" cy="1.50" r="0.550"/>
-<circle cx="18.00" cy="1.50" r="0.550"/>
-<circle cx="21.00" cy="1.50" r="0.550"/>
-<circle cx="24.00" cy="1.50" r="0.550"/>
-<circle cx="27.00" cy="1.50" r="0.550"/>
-<circle cx="30.00" cy="1.50" r="0.550"/>
-<circle cx="33.00" cy="1.50" r="0.550"/>
-<circle cx="36.00" cy="1.50" r="0.550"/>
-<circle cx="39.00" cy="1.50" r="0.550"/>
-<circle cx="42.00" cy="1.50" r="0.550"/>
-<circle cx="45.00" cy="1.50" r="0.550"/>
-<circle cx="48.00" cy="1.50" r="0.550"/>
-<circle cx="51.00" cy="1.50" r="0.550"/>
-<circle cx="54.00" cy="1.50" r="0.550"/>
-<circle cx="57.00" cy="1.50" r="0.550"/>
-<circle cx="60.00" cy="1.50" r="0.550"/>
-<circle cx="63.00" cy="1.50" r="0.550"/>
-<circle cx="66.00" cy="1.50" r="0.550"/>
-<circle cx="69.00" cy="1.50" r="0.550"/>
-<circle cx="72.00" cy="1.50" r="0.550"/>
-<circle cx="75.00" cy="1.50" r="0.550"/>
-<circle cx="78.00" cy="1.50" r="0.550"/>
-<circle cx="81.00" cy="1.50" r="0.550"/>
-<circle cx="84.00" cy="1.50" r="0.550"/>
-<circle cx="1.50" cy="4.50" r="0.488"/>
-<circle cx="4.50" cy="4.50" r="0.488"/>
-<circle cx="7.50" cy="4.50" r="0.488"/>
-<circle cx="10.50" cy="4.50" r="0.488"/>
-<circle cx="13.50" cy="4.50" r="0.488"/>
-<circle cx="16.50" cy="4.50" r="0.488"/>
-<circle cx="19.50" cy="4.50" r="0.488"/>
-<circle cx="22.50" cy="4.50" r="0.488"/>
-<circle cx="25.50" cy="4.50" r="0.488"/>
-<circle cx="28.50" cy="4.50" r="0.488"/>
-<circle cx="31.50" cy="4.50" r="0.488"/>
-<circle cx="34.50" cy="4.50" r="0.488"/>
-<circle cx="37.50" cy="4.50" r="0.488"/>
-<circle cx="40.50" cy="4.50" r="0.488"/>
-<circle cx="43.50" cy="4.50" r="0.488"/>
-<circle cx="46.50" cy="4.50" r="0.488"/>
-<circle cx="49.50" cy="4.50" r="0.488"/>
-<circle cx="52.50" cy="4.50" r="0.488"/>
-<circle cx="55.50" cy="4.50" r="0.488"/>
-<circle cx="58.50" cy="4.50" r="0.488"/>
-<circle cx="61.50" cy="4.50" r="0.488"/>
-<circle cx="64.50" cy="4.50" r="0.488"/>
-<circle cx="67.50" cy="4.50" r="0.488"/>
-<circle cx="70.50" cy="4.50" r="0.488"/>
-<circle cx="73.50" cy="4.50" r="0.488"/>
-<circle cx="76.50" cy="4.50" r="0.488"/>
-<circle cx="79.50" cy="4.50" r="0.488"/>
-<circle cx="82.50" cy="4.50" r="0.488"/>
-<circle cx="0.00" cy="7.50" r="0.425"/>
-<circle cx="3.00" cy="7.50" r="0.425"/>
-<circle cx="6.00" cy="7.50" r="0.425"/>
-<circle cx="9.00" cy="7.50" r="0.425"/>
-<circle cx="12.00" cy="7.50" r="0.425"/>
-<circle cx="15.00" cy="7.50" r="0.425"/>
-<circle cx="18.00" cy="7.50" r="0.425"/>
-<circle cx="21.00" cy="7.50" r="0.425"/>
-<circle cx="24.00" cy="7.50" r="0.425"/>
-<circle cx="27.00" cy="7.50" r="0.425"/>
-<circle cx="30.00" cy="7.50" r="0.425"/>
-<circle cx="33.00" cy="7.50" r="0.425"/>
-<circle cx="36.00" cy="7.50" r="0.425"/>
-<circle cx="39.00" cy="7.50" r="0.425"/>
-<circle cx="42.00" cy="7.50" r="0.425"/>
-<circle cx="45.00" cy="7.50" r="0.425"/>
-<circle cx="48.00" cy="7.50" r="0.425"/>
-<circle cx="51.00" cy="7.50" r="0.425"/>
-<circle cx="54.00" cy="7.50" r="0.425"/>
-<circle cx="57.00" cy="7.50" r="0.425"/>
-<circle cx="60.00" cy="7.50" r="0.425"/>
-<circle cx="63.00" cy="7.50" r="0.425"/>
-<circle cx="66.00" cy="7.50" r="0.425"/>
-<circle cx="69.00" cy="7.50" r="0.425"/>
-<circle cx="72.00" cy="7.50" r="0.425"/>
-<circle cx="75.00" cy="7.50" r="0.425"/>
-<circle cx="78.00" cy="7.50" r="0.425"/>
-<circle cx="81.00" cy="7.50" r="0.425"/>
-<circle cx="84.00" cy="7.50" r="0.425"/>
-<circle cx="1.50" cy="10.50" r="0.363"/>
-<circle cx="4.50" cy="10.50" r="0.363"/>
-<circle cx="7.50" cy="10.50" r="0.363"/>
-<circle cx="10.50" cy="10.50" r="0.363"/>
-<circle cx="13.50" cy="10.50" r="0.363"/>
-<circle cx="16.50" cy="10.50" r="0.363"/>
-<circle cx="19.50" cy="10.50" r="0.363"/>
-<circle cx="22.50" cy="10.50" r="0.363"/>
-<circle cx="25.50" cy="10.50" r="0.363"/>
-<circle cx="28.50" cy="10.50" r="0.363"/>
-<circle cx="31.50" cy="10.50" r="0.363"/>
-<circle cx="34.50" cy="10.50" r="0.363"/>
-<circle cx="37.50" cy="10.50" r="0.363"/>
-<circle cx="40.50" cy="10.50" r="0.363"/>
-<circle cx="43.50" cy="10.50" r="0.363"/>
-<circle cx="46.50" cy="10.50" r="0.363"/>
-<circle cx="49.50" cy="10.50" r="0.363"/>
-<circle cx="52.50" cy="10.50" r="0.363"/>
-<circle cx="55.50" cy="10.50" r="0.363"/>
-<circle cx="58.50" cy="10.50" r="0.363"/>
-<circle cx="61.50" cy="10.50" r="0.363"/>
-<circle cx="64.50" cy="10.50" r="0.363"/>
-<circle cx="67.50" cy="10.50" r="0.363"/>
-<circle cx="70.50" cy="10.50" r="0.363"/>
-<circle cx="73.50" cy="10.50" r="0.363"/>
-<circle cx="76.50" cy="10.50" r="0.363"/>
-<circle cx="79.50" cy="10.50" r="0.363"/>
-<circle cx="82.50" cy="10.50" r="0.363"/>
-<circle cx="0.00" cy="13.50" r="0.300"/>
-<circle cx="3.00" cy="13.50" r="0.300"/>
-<circle cx="6.00" cy="13.50" r="0.300"/>
-<circle cx="9.00" cy="13.50" r="0.300"/>
-<circle cx="12.00" cy="13.50" r="0.300"/>
-<circle cx="15.00" cy="13.50" r="0.300"/>
-<circle cx="18.00" cy="13.50" r="0.300"/>
-<circle cx="21.00" cy="13.50" r="0.300"/>
-<circle cx="24.00" cy="13.50" r="0.300"/>
-<circle cx="27.00" cy="13.50" r="0.300"/>
-<circle cx="30.00" cy="13.50" r="0.300"/>
-<circle cx="33.00" cy="13.50" r="0.300"/>
-<circle cx="36.00" cy="13.50" r="0.300"/>
-<circle cx="39.00" cy="13.50" r="0.300"/>
-<circle cx="42.00" cy="13.50" r="0.300"/>
-<circle cx="45.00" cy="13.50" r="0.300"/>
-<circle cx="48.00" cy="13.50" r="0.300"/>
-<circle cx="51.00" cy="13.50" r="0.300"/>
-<circle cx="54.00" cy="13.50" r="0.300"/>
-<circle cx="57.00" cy="13.50" r="0.300"/>
-<circle cx="60.00" cy="13.50" r="0.300"/>
-<circle cx="63.00" cy="13.50" r="0.300"/>
-<circle cx="66.00" cy="13.50" r="0.300"/>
-<circle cx="69.00" cy="13.50" r="0.300"/>
-<circle cx="72.00" cy="13.50" r="0.300"/>
-<circle cx="75.00" cy="13.50" r="0.300"/>
-<circle cx="78.00" cy="13.50" r="0.300"/>
-<circle cx="81.00" cy="13.50" r="0.300"/>
-<circle cx="84.00" cy="13.50" r="0.300"/>
-<circle cx="1.50" cy="16.50" r="0.238"/>
-<circle cx="4.50" cy="16.50" r="0.238"/>
-<circle cx="7.50" cy="16.50" r="0.238"/>
-<circle cx="10.50" cy="16.50" r="0.238"/>
-<circle cx="13.50" cy="16.50" r="0.238"/>
-<circle cx="16.50" cy="16.50" r="0.238"/>
-<circle cx="19.50" cy="16.50" r="0.238"/>
-<circle cx="22.50" cy="16.50" r="0.238"/>
-<circle cx="25.50" cy="16.50" r="0.238"/>
-<circle cx="28.50" cy="16.50" r="0.238"/>
-<circle cx="31.50" cy="16.50" r="0.238"/>
-<circle cx="34.50" cy="16.50" r="0.238"/>
-<circle cx="37.50" cy="16.50" r="0.238"/>
-<circle cx="40.50" cy="16.50" r="0.238"/>
-<circle cx="43.50" cy="16.50" r="0.238"/>
-<circle cx="46.50" cy="16.50" r="0.238"/>
-<circle cx="49.50" cy="16.50" r="0.238"/>
-<circle cx="52.50" cy="16.50" r="0.238"/>
-<circle cx="55.50" cy="16.50" r="0.238"/>
-<circle cx="58.50" cy="16.50" r="0.238"/>
-<circle cx="61.50" cy="16.50" r="0.238"/>
-<circle cx="64.50" cy="16.50" r="0.238"/>
-<circle cx="67.50" cy="16.50" r="0.238"/>
-<circle cx="70.50" cy="16.50" r="0.238"/>
-<circle cx="73.50" cy="16.50" r="0.238"/>
-<circle cx="76.50" cy="16.50" r="0.238"/>
-<circle cx="79.50" cy="16.50" r="0.238"/>
-<circle cx="82.50" cy="16.50" r="0.238"/>
-<circle cx="0.00" cy="19.50" r="0.175"/>
-<circle cx="3.00" cy="19.50" r="0.175"/>
-<circle cx="6.00" cy="19.50" r="0.175"/>
-<circle cx="9.00" cy="19.50" r="0.175"/>
-<circle cx="12.00" cy="19.50" r="0.175"/>
-<circle cx="15.00" cy="19.50" r="0.175"/>
-<circle cx="18.00" cy="19.50" r="0.175"/>
-<circle cx="21.00" cy="19.50" r="0.175"/>
-<circle cx="24.00" cy="19.50" r="0.175"/>
-<circle cx="27.00" cy="19.50" r="0.175"/>
-<circle cx="30.00" cy="19.50" r="0.175"/>
-<circle cx="33.00" cy="19.50" r="0.175"/>
-<circle cx="36.00" cy="19.50" r="0.175"/>
-<circle cx="39.00" cy="19.50" r="0.175"/>
-<circle cx="42.00" cy="19.50" r="0.175"/>
-<circle cx="45.00" cy="19.50" r="0.175"/>
-<circle cx="48.00" cy="19.50" r="0.175"/>
-<circle cx="51.00" cy="19.50" r="0.175"/>
-<circle cx="54.00" cy="19.50" r="0.175"/>
-<circle cx="57.00" cy="19.50" r="0.175"/>
-<circle cx="60.00" cy="19.50" r="0.175"/>
-<circle cx="63.00" cy="19.50" r="0.175"/>
-<circle cx="66.00" cy="19.50" r="0.175"/>
-<circle cx="69.00" cy="19.50" r="0.175"/>
-<circle cx="72.00" cy="19.50" r="0.175"/>
-<circle cx="75.00" cy="19.50" r="0.175"/>
-<circle cx="78.00" cy="19.50" r="0.175"/>
-<circle cx="81.00" cy="19.50" r="0.175"/>
-<circle cx="84.00" cy="19.50" r="0.175"/>
-<circle cx="1.50" cy="22.50" r="0.113"/>
-<circle cx="4.50" cy="22.50" r="0.113"/>
-<circle cx="7.50" cy="22.50" r="0.113"/>
-<circle cx="10.50" cy="22.50" r="0.113"/>
-<circle cx="13.50" cy="22.50" r="0.113"/>
-<circle cx="16.50" cy="22.50" r="0.113"/>
-<circle cx="19.50" cy="22.50" r="0.113"/>
-<circle cx="22.50" cy="22.50" r="0.113"/>
-<circle cx="25.50" cy="22.50" r="0.113"/>
-<circle cx="28.50" cy="22.50" r="0.113"/>
-<circle cx="31.50" cy="22.50" r="0.113"/>
-<circle cx="34.50" cy="22.50" r="0.113"/>
-<circle cx="37.50" cy="22.50" r="0.113"/>
-<circle cx="40.50" cy="22.50" r="0.113"/>
-<circle cx="43.50" cy="22.50" r="0.113"/>
-<circle cx="46.50" cy="22.50" r="0.113"/>
-<circle cx="49.50" cy="22.50" r="0.113"/>
-<circle cx="52.50" cy="22.50" r="0.113"/>
-<circle cx="55.50" cy="22.50" r="0.113"/>
-<circle cx="58.50" cy="22.50" r="0.113"/>
-<circle cx="61.50" cy="22.50" r="0.113"/>
-<circle cx="64.50" cy="22.50" r="0.113"/>
-<circle cx="67.50" cy="22.50" r="0.113"/>
-<circle cx="70.50" cy="22.50" r="0.113"/>
-<circle cx="73.50" cy="22.50" r="0.113"/>
-<circle cx="76.50" cy="22.50" r="0.113"/>
-<circle cx="79.50" cy="22.50" r="0.113"/>
-<circle cx="82.50" cy="22.50" r="0.113"/>
-<circle cx="0.00" cy="25.50" r="0.050"/>
-<circle cx="3.00" cy="25.50" r="0.050"/>
-<circle cx="6.00" cy="25.50" r="0.050"/>
-<circle cx="9.00" cy="25.50" r="0.050"/>
-<circle cx="12.00" cy="25.50" r="0.050"/>
-<circle cx="15.00" cy="25.50" r="0.050"/>
-<circle cx="18.00" cy="25.50" r="0.050"/>
-<circle cx="21.00" cy="25.50" r="0.050"/>
-<circle cx="24.00" cy="25.50" r="0.050"/>
-<circle cx="27.00" cy="25.50" r="0.050"/>
-<circle cx="30.00" cy="25.50" r="0.050"/>
-<circle cx="33.00" cy="25.50" r="0.050"/>
-<circle cx="36.00" cy="25.50" r="0.050"/>
-<circle cx="39.00" cy="25.50" r="0.050"/>
-<circle cx="42.00" cy="25.50" r="0.050"/>
-<circle cx="45.00" cy="25.50" r="0.050"/>
-<circle cx="48.00" cy="25.50" r="0.050"/>
-<circle cx="51.00" cy="25.50" r="0.050"/>
-<circle cx="54.00" cy="25.50" r="0.050"/>
-<circle cx="57.00" cy="25.50" r="0.050"/>
-<circle cx="60.00" cy="25.50" r="0.050"/>
-<circle cx="63.00" cy="25.50" r="0.050"/>
-<circle cx="66.00" cy="25.50" r="0.050"/>
-<circle cx="69.00" cy="25.50" r="0.050"/>
-<circle cx="72.00" cy="25.50" r="0.050"/>
-<circle cx="75.00" cy="25.50" r="0.050"/>
-<circle cx="78.00" cy="25.50" r="0.050"/>
-<circle cx="81.00" cy="25.50" r="0.050"/>
-<circle cx="84.00" cy="25.50" r="0.050"/>
-</symbol>
-<symbol id="halftone-2" viewBox="0 0 84.0 27.0" fill="currentColor">
-<circle cx="0.00" cy="0.75" r="0.025"/>
-<circle cx="1.50" cy="0.75" r="0.025"/>
-<circle cx="3.00" cy="0.75" r="0.025"/>
-<circle cx="4.50" cy="0.75" r="0.025"/>
-<circle cx="6.00" cy="0.75" r="0.025"/>
-<circle cx="7.50" cy="0.75" r="0.025"/>
-<circle cx="9.00" cy="0.75" r="0.025"/>
-<circle cx="10.50" cy="0.75" r="0.025"/>
-<circle cx="12.00" cy="0.75" r="0.025"/>
-<circle cx="13.50" cy="0.75" r="0.025"/>
-<circle cx="15.00" cy="0.75" r="0.025"/>
-<circle cx="16.50" cy="0.75" r="0.025"/>
-<circle cx="18.00" cy="0.75" r="0.025"/>
-<circle cx="19.50" cy="0.75" r="0.025"/>
-<circle cx="21.00" cy="0.75" r="0.025"/>
-<circle cx="22.50" cy="0.75" r="0.025"/>
-<circle cx="24.00" cy="0.75" r="0.025"/>
-<circle cx="25.50" cy="0.75" r="0.025"/>
-<circle cx="27.00" cy="0.75" r="0.025"/>
-<circle cx="28.50" cy="0.75" r="0.025"/>
-<circle cx="30.00" cy="0.75" r="0.025"/>
-<circle cx="31.50" cy="0.75" r="0.025"/>
-<circle cx="33.00" cy="0.75" r="0.025"/>
-<circle cx="34.50" cy="0.75" r="0.025"/>
-<circle cx="36.00" cy="0.75" r="0.025"/>
-<circle cx="37.50" cy="0.75" r="0.025"/>
-<circle cx="39.00" cy="0.75" r="0.025"/>
-<circle cx="40.50" cy="0.75" r="0.025"/>
-<circle cx="42.00" cy="0.75" r="0.025"/>
-<circle cx="43.50" cy="0.75" r="0.025"/>
-<circle cx="45.00" cy="0.75" r="0.025"/>
-<circle cx="46.50" cy="0.75" r="0.025"/>
-<circle cx="48.00" cy="0.75" r="0.025"/>
-<circle cx="49.50" cy="0.75" r="0.025"/>
-<circle cx="51.00" cy="0.75" r="0.025"/>
-<circle cx="52.50" cy="0.75" r="0.025"/>
-<circle cx="54.00" cy="0.75" r="0.025"/>
-<circle cx="55.50" cy="0.75" r="0.025"/>
-<circle cx="57.00" cy="0.75" r="0.025"/>
-<circle cx="58.50" cy="0.75" r="0.025"/>
-<circle cx="60.00" cy="0.75" r="0.025"/>
-<circle cx="61.50" cy="0.75" r="0.025"/>
-<circle cx="63.00" cy="0.75" r="0.025"/>
-<circle cx="64.50" cy="0.75" r="0.025"/>
-<circle cx="66.00" cy="0.75" r="0.025"/>
-<circle cx="67.50" cy="0.75" r="0.025"/>
-<circle cx="69.00" cy="0.75" r="0.025"/>
-<circle cx="70.50" cy="0.75" r="0.025"/>
-<circle cx="72.00" cy="0.75" r="0.025"/>
-<circle cx="73.50" cy="0.75" r="0.025"/>
-<circle cx="75.00" cy="0.75" r="0.025"/>
-<circle cx="76.50" cy="0.75" r="0.025"/>
-<circle cx="78.00" cy="0.75" r="0.025"/>
-<circle cx="79.50" cy="0.75" r="0.025"/>
-<circle cx="81.00" cy="0.75" r="0.025"/>
-<circle cx="82.50" cy="0.75" r="0.025"/>
-<circle cx="84.00" cy="0.75" r="0.025"/>
-<circle cx="0.75" cy="2.25" r="0.056"/>
-<circle cx="2.25" cy="2.25" r="0.056"/>
-<circle cx="3.75" cy="2.25" r="0.056"/>
-<circle cx="5.25" cy="2.25" r="0.056"/>
-<circle cx="6.75" cy="2.25" r="0.056"/>
-<circle cx="8.25" cy="2.25" r="0.056"/>
-<circle cx="9.75" cy="2.25" r="0.056"/>
-<circle cx="11.25" cy="2.25" r="0.056"/>
-<circle cx="12.75" cy="2.25" r="0.056"/>
-<circle cx="14.25" cy="2.25" r="0.056"/>
-<circle cx="15.75" cy="2.25" r="0.056"/>
-<circle cx="17.25" cy="2.25" r="0.056"/>
-<circle cx="18.75" cy="2.25" r="0.056"/>
-<circle cx="20.25" cy="2.25" r="0.056"/>
-<circle cx="21.75" cy="2.25" r="0.056"/>
-<circle cx="23.25" cy="2.25" r="0.056"/>
-<circle cx="24.75" cy="2.25" r="0.056"/>
-<circle cx="26.25" cy="2.25" r="0.056"/>
-<circle cx="27.75" cy="2.25" r="0.056"/>
-<circle cx="29.25" cy="2.25" r="0.056"/>
-<circle cx="30.75" cy="2.25" r="0.056"/>
-<circle cx="32.25" cy="2.25" r="0.056"/>
-<circle cx="33.75" cy="2.25" r="0.056"/>
-<circle cx="35.25" cy="2.25" r="0.056"/>
-<circle cx="36.75" cy="2.25" r="0.056"/>
-<circle cx="38.25" cy="2.25" r="0.056"/>
-<circle cx="39.75" cy="2.25" r="0.056"/>
-<circle cx="41.25" cy="2.25" r="0.056"/>
-<circle cx="42.75" cy="2.25" r="0.056"/>
-<circle cx="44.25" cy="2.25" r="0.056"/>
-<circle cx="45.75" cy="2.25" r="0.056"/>
-<circle cx="47.25" cy="2.25" r="0.056"/>
-<circle cx="48.75" cy="2.25" r="0.056"/>
-<circle cx="50.25" cy="2.25" r="0.056"/>
-<circle cx="51.75" cy="2.25" r="0.056"/>
-<circle cx="53.25" cy="2.25" r="0.056"/>
-<circle cx="54.75" cy="2.25" r="0.056"/>
-<circle cx="56.25" cy="2.25" r="0.056"/>
-<circle cx="57.75" cy="2.25" r="0.056"/>
-<circle cx="59.25" cy="2.25" r="0.056"/>
-<circle cx="60.75" cy="2.25" r="0.056"/>
-<circle cx="62.25" cy="2.25" r="0.056"/>
-<circle cx="63.75" cy="2.25" r="0.056"/>
-<circle cx="65.25" cy="2.25" r="0.056"/>
-<circle cx="66.75" cy="2.25" r="0.056"/>
-<circle cx="68.25" cy="2.25" r="0.056"/>
-<circle cx="69.75" cy="2.25" r="0.056"/>
-<circle cx="71.25" cy="2.25" r="0.056"/>
-<circle cx="72.75" cy="2.25" r="0.056"/>
-<circle cx="74.25" cy="2.25" r="0.056"/>
-<circle cx="75.75" cy="2.25" r="0.056"/>
-<circle cx="77.25" cy="2.25" r="0.056"/>
-<circle cx="78.75" cy="2.25" r="0.056"/>
-<circle cx="80.25" cy="2.25" r="0.056"/>
-<circle cx="81.75" cy="2.25" r="0.056"/>
-<circle cx="83.25" cy="2.25" r="0.056"/>
-<circle cx="0.00" cy="3.75" r="0.087"/>
-<circle cx="1.50" cy="3.75" r="0.087"/>
-<circle cx="3.00" cy="3.75" r="0.087"/>
-<circle cx="4.50" cy="3.75" r="0.087"/>
-<circle cx="6.00" cy="3.75" r="0.087"/>
-<circle cx="7.50" cy="3.75" r="0.087"/>
-<circle cx="9.00" cy="3.75" r="0.087"/>
-<circle cx="10.50" cy="3.75" r="0.087"/>
-<circle cx="12.00" cy="3.75" r="0.087"/>
-<circle cx="13.50" cy="3.75" r="0.087"/>
-<circle cx="15.00" cy="3.75" r="0.087"/>
-<circle cx="16.50" cy="3.75" r="0.087"/>
-<circle cx="18.00" cy="3.75" r="0.087"/>
-<circle cx="19.50" cy="3.75" r="0.087"/>
-<circle cx="21.00" cy="3.75" r="0.087"/>
-<circle cx="22.50" cy="3.75" r="0.087"/>
-<circle cx="24.00" cy="3.75" r="0.087"/>
-<circle cx="25.50" cy="3.75" r="0.087"/>
-<circle cx="27.00" cy="3.75" r="0.087"/>
-<circle cx="28.50" cy="3.75" r="0.087"/>
-<circle cx="30.00" cy="3.75" r="0.087"/>
-<circle cx="31.50" cy="3.75" r="0.087"/>
-<circle cx="33.00" cy="3.75" r="0.087"/>
-<circle cx="34.50" cy="3.75" r="0.087"/>
-<circle cx="36.00" cy="3.75" r="0.087"/>
-<circle cx="37.50" cy="3.75" r="0.087"/>
-<circle cx="39.00" cy="3.75" r="0.087"/>
-<circle cx="40.50" cy="3.75" r="0.087"/>
-<circle cx="42.00" cy="3.75" r="0.087"/>
-<circle cx="43.50" cy="3.75" r="0.087"/>
-<circle cx="45.00" cy="3.75" r="0.087"/>
-<circle cx="46.50" cy="3.75" r="0.087"/>
-<circle cx="48.00" cy="3.75" r="0.087"/>
-<circle cx="49.50" cy="3.75" r="0.087"/>
-<circle cx="51.00" cy="3.75" r="0.087"/>
-<circle cx="52.50" cy="3.75" r="0.087"/>
-<circle cx="54.00" cy="3.75" r="0.087"/>
-<circle cx="55.50" cy="3.75" r="0.087"/>
-<circle cx="57.00" cy="3.75" r="0.087"/>
-<circle cx="58.50" cy="3.75" r="0.087"/>
-<circle cx="60.00" cy="3.75" r="0.087"/>
-<circle cx="61.50" cy="3.75" r="0.087"/>
-<circle cx="63.00" cy="3.75" r="0.087"/>
-<circle cx="64.50" cy="3.75" r="0.087"/>
-<circle cx="66.00" cy="3.75" r="0.087"/>
-<circle cx="67.50" cy="3.75" r="0.087"/>
-<circle cx="69.00" cy="3.75" r="0.087"/>
-<circle cx="70.50" cy="3.75" r="0.087"/>
-<circle cx="72.00" cy="3.75" r="0.087"/>
-<circle cx="73.50" cy="3.75" r="0.087"/>
-<circle cx="75.00" cy="3.75" r="0.087"/>
-<circle cx="76.50" cy="3.75" r="0.087"/>
-<circle cx="78.00" cy="3.75" r="0.087"/>
-<circle cx="79.50" cy="3.75" r="0.087"/>
-<circle cx="81.00" cy="3.75" r="0.087"/>
-<circle cx="82.50" cy="3.75" r="0.087"/>
-<circle cx="84.00" cy="3.75" r="0.087"/>
-<circle cx="0.75" cy="5.25" r="0.118"/>
-<circle cx="2.25" cy="5.25" r="0.118"/>
-<circle cx="3.75" cy="5.25" r="0.118"/>
-<circle cx="5.25" cy="5.25" r="0.118"/>
-<circle cx="6.75" cy="5.25" r="0.118"/>
-<circle cx="8.25" cy="5.25" r="0.118"/>
-<circle cx="9.75" cy="5.25" r="0.118"/>
-<circle cx="11.25" cy="5.25" r="0.118"/>
-<circle cx="12.75" cy="5.25" r="0.118"/>
-<circle cx="14.25" cy="5.25" r="0.118"/>
-<circle cx="15.75" cy="5.25" r="0.118"/>
-<circle cx="17.25" cy="5.25" r="0.118"/>
-<circle cx="18.75" cy="5.25" r="0.118"/>
-<circle cx="20.25" cy="5.25" r="0.118"/>
-<circle cx="21.75" cy="5.25" r="0.118"/>
-<circle cx="23.25" cy="5.25" r="0.118"/>
-<circle cx="24.75" cy="5.25" r="0.118"/>
-<circle cx="26.25" cy="5.25" r="0.118"/>
-<circle cx="27.75" cy="5.25" r="0.118"/>
-<circle cx="29.25" cy="5.25" r="0.118"/>
-<circle cx="30.75" cy="5.25" r="0.118"/>
-<circle cx="32.25" cy="5.25" r="0.118"/>
-<circle cx="33.75" cy="5.25" r="0.118"/>
-<circle cx="35.25" cy="5.25" r="0.118"/>
-<circle cx="36.75" cy="5.25" r="0.118"/>
-<circle cx="38.25" cy="5.25" r="0.118"/>
-<circle cx="39.75" cy="5.25" r="0.118"/>
-<circle cx="41.25" cy="5.25" r="0.118"/>
-<circle cx="42.75" cy="5.25" r="0.118"/>
-<circle cx="44.25" cy="5.25" r="0.118"/>
-<circle cx="45.75" cy="5.25" r="0.118"/>
-<circle cx="47.25" cy="5.25" r="0.118"/>
-<circle cx="48.75" cy="5.25" r="0.118"/>
-<circle cx="50.25" cy="5.25" r="0.118"/>
-<circle cx="51.75" cy="5.25" r="0.118"/>
-<circle cx="53.25" cy="5.25" r="0.118"/>
-<circle cx="54.75" cy="5.25" r="0.118"/>
-<circle cx="56.25" cy="5.25" r="0.118"/>
-<circle cx="57.75" cy="5.25" r="0.118"/>
-<circle cx="59.25" cy="5.25" r="0.118"/>
-<circle cx="60.75" cy="5.25" r="0.118"/>
-<circle cx="62.25" cy="5.25" r="0.118"/>
-<circle cx="63.75" cy="5.25" r="0.118"/>
-<circle cx="65.25" cy="5.25" r="0.118"/>
-<circle cx="66.75" cy="5.25" r="0.118"/>
-<circle cx="68.25" cy="5.25" r="0.118"/>
-<circle cx="69.75" cy="5.25" r="0.118"/>
-<circle cx="71.25" cy="5.25" r="0.118"/>
-<circle cx="72.75" cy="5.25" r="0.118"/>
-<circle cx="74.25" cy="5.25" r="0.118"/>
-<circle cx="75.75" cy="5.25" r="0.118"/>
-<circle cx="77.25" cy="5.25" r="0.118"/>
-<circle cx="78.75" cy="5.25" r="0.118"/>
-<circle cx="80.25" cy="5.25" r="0.118"/>
-<circle cx="81.75" cy="5.25" r="0.118"/>
-<circle cx="83.25" cy="5.25" r="0.118"/>
-<circle cx="0.00" cy="6.75" r="0.149"/>
-<circle cx="1.50" cy="6.75" r="0.149"/>
-<circle cx="3.00" cy="6.75" r="0.149"/>
-<circle cx="4.50" cy="6.75" r="0.149"/>
-<circle cx="6.00" cy="6.75" r="0.149"/>
-<circle cx="7.50" cy="6.75" r="0.149"/>
-<circle cx="9.00" cy="6.75" r="0.149"/>
-<circle cx="10.50" cy="6.75" r="0.149"/>
-<circle cx="12.00" cy="6.75" r="0.149"/>
-<circle cx="13.50" cy="6.75" r="0.149"/>
-<circle cx="15.00" cy="6.75" r="0.149"/>
-<circle cx="16.50" cy="6.75" r="0.149"/>
-<circle cx="18.00" cy="6.75" r="0.149"/>
-<circle cx="19.50" cy="6.75" r="0.149"/>
-<circle cx="21.00" cy="6.75" r="0.149"/>
-<circle cx="22.50" cy="6.75" r="0.149"/>
-<circle cx="24.00" cy="6.75" r="0.149"/>
-<circle cx="25.50" cy="6.75" r="0.149"/>
-<circle cx="27.00" cy="6.75" r="0.149"/>
-<circle cx="28.50" cy="6.75" r="0.149"/>
-<circle cx="30.00" cy="6.75" r="0.149"/>
-<circle cx="31.50" cy="6.75" r="0.149"/>
-<circle cx="33.00" cy="6.75" r="0.149"/>
-<circle cx="34.50" cy="6.75" r="0.149"/>
-<circle cx="36.00" cy="6.75" r="0.149"/>
-<circle cx="37.50" cy="6.75" r="0.149"/>
-<circle cx="39.00" cy="6.75" r="0.149"/>
-<circle cx="40.50" cy="6.75" r="0.149"/>
-<circle cx="42.00" cy="6.75" r="0.149"/>
-<circle cx="43.50" cy="6.75" r="0.149"/>
-<circle cx="45.00" cy="6.75" r="0.149"/>
-<circle cx="46.50" cy="6.75" r="0.149"/>
-<circle cx="48.00" cy="6.75" r="0.149"/>
-<circle cx="49.50" cy="6.75" r="0.149"/>
-<circle cx="51.00" cy="6.75" r="0.149"/>
-<circle cx="52.50" cy="6.75" r="0.149"/>
-<circle cx="54.00" cy="6.75" r="0.149"/>
-<circle cx="55.50" cy="6.75" r="0.149"/>
-<circle cx="57.00" cy="6.75" r="0.149"/>
-<circle cx="58.50" cy="6.75" r="0.149"/>
-<circle cx="60.00" cy="6.75" r="0.149"/>
-<circle cx="61.50" cy="6.75" r="0.149"/>
-<circle cx="63.00" cy="6.75" r="0.149"/>
-<circle cx="64.50" cy="6.75" r="0.149"/>
-<circle cx="66.00" cy="6.75" r="0.149"/>
-<circle cx="67.50" cy="6.75" r="0.149"/>
-<circle cx="69.00" cy="6.75" r="0.149"/>
-<circle cx="70.50" cy="6.75" r="0.149"/>
-<circle cx="72.00" cy="6.75" r="0.149"/>
-<circle cx="73.50" cy="6.75" r="0.149"/>
-<circle cx="75.00" cy="6.75" r="0.149"/>
-<circle cx="76.50" cy="6.75" r="0.149"/>
-<circle cx="78.00" cy="6.75" r="0.149"/>
-<circle cx="79.50" cy="6.75" r="0.149"/>
-<circle cx="81.00" cy="6.75" r="0.149"/>
-<circle cx="82.50" cy="6.75" r="0.149"/>
-<circle cx="84.00" cy="6.75" r="0.149"/>
-<circle cx="0.75" cy="8.25" r="0.179"/>
-<circle cx="2.25" cy="8.25" r="0.179"/>
-<circle cx="3.75" cy="8.25" r="0.179"/>
-<circle cx="5.25" cy="8.25" r="0.179"/>
-<circle cx="6.75" cy="8.25" r="0.179"/>
-<circle cx="8.25" cy="8.25" r="0.179"/>
-<circle cx="9.75" cy="8.25" r="0.179"/>
-<circle cx="11.25" cy="8.25" r="0.179"/>
-<circle cx="12.75" cy="8.25" r="0.179"/>
-<circle cx="14.25" cy="8.25" r="0.179"/>
-<circle cx="15.75" cy="8.25" r="0.179"/>
-<circle cx="17.25" cy="8.25" r="0.179"/>
-<circle cx="18.75" cy="8.25" r="0.179"/>
-<circle cx="20.25" cy="8.25" r="0.179"/>
-<circle cx="21.75" cy="8.25" r="0.179"/>
-<circle cx="23.25" cy="8.25" r="0.179"/>
-<circle cx="24.75" cy="8.25" r="0.179"/>
-<circle cx="26.25" cy="8.25" r="0.179"/>
-<circle cx="27.75" cy="8.25" r="0.179"/>
-<circle cx="29.25" cy="8.25" r="0.179"/>
-<circle cx="30.75" cy="8.25" r="0.179"/>
-<circle cx="32.25" cy="8.25" r="0.179"/>
-<circle cx="33.75" cy="8.25" r="0.179"/>
-<circle cx="35.25" cy="8.25" r="0.179"/>
-<circle cx="36.75" cy="8.25" r="0.179"/>
-<circle cx="38.25" cy="8.25" r="0.179"/>
-<circle cx="39.75" cy="8.25" r="0.179"/>
-<circle cx="41.25" cy="8.25" r="0.179"/>
-<circle cx="42.75" cy="8.25" r="0.179"/>
-<circle cx="44.25" cy="8.25" r="0.179"/>
-<circle cx="45.75" cy="8.25" r="0.179"/>
-<circle cx="47.25" cy="8.25" r="0.179"/>
-<circle cx="48.75" cy="8.25" r="0.179"/>
-<circle cx="50.25" cy="8.25" r="0.179"/>
-<circle cx="51.75" cy="8.25" r="0.179"/>
-<circle cx="53.25" cy="8.25" r="0.179"/>
-<circle cx="54.75" cy="8.25" r="0.179"/>
-<circle cx="56.25" cy="8.25" r="0.179"/>
-<circle cx="57.75" cy="8.25" r="0.179"/>
-<circle cx="59.25" cy="8.25" r="0.179"/>
-<circle cx="60.75" cy="8.25" r="0.179"/>
-<circle cx="62.25" cy="8.25" r="0.179"/>
-<circle cx="63.75" cy="8.25" r="0.179"/>
-<circle cx="65.25" cy="8.25" r="0.179"/>
-<circle cx="66.75" cy="8.25" r="0.179"/>
-<circle cx="68.25" cy="8.25" r="0.179"/>
-<circle cx="69.75" cy="8.25" r="0.179"/>
-<circle cx="71.25" cy="8.25" r="0.179"/>
-<circle cx="72.75" cy="8.25" r="0.179"/>
-<circle cx="74.25" cy="8.25" r="0.179"/>
-<circle cx="75.75" cy="8.25" r="0.179"/>
-<circle cx="77.25" cy="8.25" r="0.179"/>
-<circle cx="78.75" cy="8.25" r="0.179"/>
-<circle cx="80.25" cy="8.25" r="0.179"/>
-<circle cx="81.75" cy="8.25" r="0.179"/>
-<circle cx="83.25" cy="8.25" r="0.179"/>
-<circle cx="0.00" cy="9.75" r="0.210"/>
-<circle cx="1.50" cy="9.75" r="0.210"/>
-<circle cx="3.00" cy="9.75" r="0.210"/>
-<circle cx="4.50" cy="9.75" r="0.210"/>
-<circle cx="6.00" cy="9.75" r="0.210"/>
-<circle cx="7.50" cy="9.75" r="0.210"/>
-<circle cx="9.00" cy="9.75" r="0.210"/>
-<circle cx="10.50" cy="9.75" r="0.210"/>
-<circle cx="12.00" cy="9.75" r="0.210"/>
-<circle cx="13.50" cy="9.75" r="0.210"/>
-<circle cx="15.00" cy="9.75" r="0.210"/>
-<circle cx="16.50" cy="9.75" r="0.210"/>
-<circle cx="18.00" cy="9.75" r="0.210"/>
-<circle cx="19.50" cy="9.75" r="0.210"/>
-<circle cx="21.00" cy="9.75" r="0.210"/>
-<circle cx="22.50" cy="9.75" r="0.210"/>
-<circle cx="24.00" cy="9.75" r="0.210"/>
-<circle cx="25.50" cy="9.75" r="0.210"/>
-<circle cx="27.00" cy="9.75" r="0.210"/>
-<circle cx="28.50" cy="9.75" r="0.210"/>
-<circle cx="30.00" cy="9.75" r="0.210"/>
-<circle cx="31.50" cy="9.75" r="0.210"/>
-<circle cx="33.00" cy="9.75" r="0.210"/>
-<circle cx="34.50" cy="9.75" r="0.210"/>
-<circle cx="36.00" cy="9.75" r="0.210"/>
-<circle cx="37.50" cy="9.75" r="0.210"/>
-<circle cx="39.00" cy="9.75" r="0.210"/>
-<circle cx="40.50" cy="9.75" r="0.210"/>
-<circle cx="42.00" cy="9.75" r="0.210"/>
-<circle cx="43.50" cy="9.75" r="0.210"/>
-<circle cx="45.00" cy="9.75" r="0.210"/>
-<circle cx="46.50" cy="9.75" r="0.210"/>
-<circle cx="48.00" cy="9.75" r="0.210"/>
-<circle cx="49.50" cy="9.75" r="0.210"/>
-<circle cx="51.00" cy="9.75" r="0.210"/>
-<circle cx="52.50" cy="9.75" r="0.210"/>
-<circle cx="54.00" cy="9.75" r="0.210"/>
-<circle cx="55.50" cy="9.75" r="0.210"/>
-<circle cx="57.00" cy="9.75" r="0.210"/>
-<circle cx="58.50" cy="9.75" r="0.210"/>
-<circle cx="60.00" cy="9.75" r="0.210"/>
-<circle cx="61.50" cy="9.75" r="0.210"/>
-<circle cx="63.00" cy="9.75" r="0.210"/>
-<circle cx="64.50" cy="9.75" r="0.210"/>
-<circle cx="66.00" cy="9.75" r="0.210"/>
-<circle cx="67.50" cy="9.75" r="0.210"/>
-<circle cx="69.00" cy="9.75" r="0.210"/>
-<circle cx="70.50" cy="9.75" r="0.210"/>
-<circle cx="72.00" cy="9.75" r="0.210"/>
-<circle cx="73.50" cy="9.75" r="0.210"/>
-<circle cx="75.00" cy="9.75" r="0.210"/>
-<circle cx="76.50" cy="9.75" r="0.210"/>
-<circle cx="78.00" cy="9.75" r="0.210"/>
-<circle cx="79.50" cy="9.75" r="0.210"/>
-<circle cx="81.00" cy="9.75" r="0.210"/>
-<circle cx="82.50" cy="9.75" r="0.210"/>
-<circle cx="84.00" cy="9.75" r="0.210"/>
-<circle cx="0.75" cy="11.25" r="0.241"/>
-<circle cx="2.25" cy="11.25" r="0.241"/>
-<circle cx="3.75" cy="11.25" r="0.241"/>
-<circle cx="5.25" cy="11.25" r="0.241"/>
-<circle cx="6.75" cy="11.25" r="0.241"/>
-<circle cx="8.25" cy="11.25" r="0.241"/>
-<circle cx="9.75" cy="11.25" r="0.241"/>
-<circle cx="11.25" cy="11.25" r="0.241"/>
-<circle cx="12.75" cy="11.25" r="0.241"/>
-<circle cx="14.25" cy="11.25" r="0.241"/>
-<circle cx="15.75" cy="11.25" r="0.241"/>
-<circle cx="17.25" cy="11.25" r="0.241"/>
-<circle cx="18.75" cy="11.25" r="0.241"/>
-<circle cx="20.25" cy="11.25" r="0.241"/>
-<circle cx="21.75" cy="11.25" r="0.241"/>
-<circle cx="23.25" cy="11.25" r="0.241"/>
-<circle cx="24.75" cy="11.25" r="0.241"/>
-<circle cx="26.25" cy="11.25" r="0.241"/>
-<circle cx="27.75" cy="11.25" r="0.241"/>
-<circle cx="29.25" cy="11.25" r="0.241"/>
-<circle cx="30.75" cy="11.25" r="0.241"/>
-<circle cx="32.25" cy="11.25" r="0.241"/>
-<circle cx="33.75" cy="11.25" r="0.241"/>
-<circle cx="35.25" cy="11.25" r="0.241"/>
-<circle cx="36.75" cy="11.25" r="0.241"/>
-<circle cx="38.25" cy="11.25" r="0.241"/>
-<circle cx="39.75" cy="11.25" r="0.241"/>
-<circle cx="41.25" cy="11.25" r="0.241"/>
-<circle cx="42.75" cy="11.25" r="0.241"/>
-<circle cx="44.25" cy="11.25" r="0.241"/>
-<circle cx="45.75" cy="11.25" r="0.241"/>
-<circle cx="47.25" cy="11.25" r="0.241"/>
-<circle cx="48.75" cy="11.25" r="0.241"/>
-<circle cx="50.25" cy="11.25" r="0.241"/>
-<circle cx="51.75" cy="11.25" r="0.241"/>
-<circle cx="53.25" cy="11.25" r="0.241"/>
-<circle cx="54.75" cy="11.25" r="0.241"/>
-<circle cx="56.25" cy="11.25" r="0.241"/>
-<circle cx="57.75" cy="11.25" r="0.241"/>
-<circle cx="59.25" cy="11.25" r="0.241"/>
-<circle cx="60.75" cy="11.25" r="0.241"/>
-<circle cx="62.25" cy="11.25" r="0.241"/>
-<circle cx="63.75" cy="11.25" r="0.241"/>
-<circle cx="65.25" cy="11.25" r="0.241"/>
-<circle cx="66.75" cy="11.25" r="0.241"/>
-<circle cx="68.25" cy="11.25" r="0.241"/>
-<circle cx="69.75" cy="11.25" r="0.241"/>
-<circle cx="71.25" cy="11.25" r="0.241"/>
-<circle cx="72.75" cy="11.25" r="0.241"/>
-<circle cx="74.25" cy="11.25" r="0.241"/>
-<circle cx="75.75" cy="11.25" r="0.241"/>
-<circle cx="77.25" cy="11.25" r="0.241"/>
-<circle cx="78.75" cy="11.25" r="0.241"/>
-<circle cx="80.25" cy="11.25" r="0.241"/>
-<circle cx="81.75" cy="11.25" r="0.241"/>
-<circle cx="83.25" cy="11.25" r="0.241"/>
-<circle cx="0.00" cy="12.75" r="0.272"/>
-<circle cx="1.50" cy="12.75" r="0.272"/>
-<circle cx="3.00" cy="12.75" r="0.272"/>
-<circle cx="4.50" cy="12.75" r="0.272"/>
-<circle cx="6.00" cy="12.75" r="0.272"/>
-<circle cx="7.50" cy="12.75" r="0.272"/>
-<circle cx="9.00" cy="12.75" r="0.272"/>
-<circle cx="10.50" cy="12.75" r="0.272"/>
-<circle cx="12.00" cy="12.75" r="0.272"/>
-<circle cx="13.50" cy="12.75" r="0.272"/>
-<circle cx="15.00" cy="12.75" r="0.272"/>
-<circle cx="16.50" cy="12.75" r="0.272"/>
-<circle cx="18.00" cy="12.75" r="0.272"/>
-<circle cx="19.50" cy="12.75" r="0.272"/>
-<circle cx="21.00" cy="12.75" r="0.272"/>
-<circle cx="22.50" cy="12.75" r="0.272"/>
-<circle cx="24.00" cy="12.75" r="0.272"/>
-<circle cx="25.50" cy="12.75" r="0.272"/>
-<circle cx="27.00" cy="12.75" r="0.272"/>
-<circle cx="28.50" cy="12.75" r="0.272"/>
-<circle cx="30.00" cy="12.75" r="0.272"/>
-<circle cx="31.50" cy="12.75" r="0.272"/>
-<circle cx="33.00" cy="12.75" r="0.272"/>
-<circle cx="34.50" cy="12.75" r="0.272"/>
-<circle cx="36.00" cy="12.75" r="0.272"/>
-<circle cx="37.50" cy="12.75" r="0.272"/>
-<circle cx="39.00" cy="12.75" r="0.272"/>
-<circle cx="40.50" cy="12.75" r="0.272"/>
-<circle cx="42.00" cy="12.75" r="0.272"/>
-<circle cx="43.50" cy="12.75" r="0.272"/>
-<circle cx="45.00" cy="12.75" r="0.272"/>
-<circle cx="46.50" cy="12.75" r="0.272"/>
-<circle cx="48.00" cy="12.75" r="0.272"/>
-<circle cx="49.50" cy="12.75" r="0.272"/>
-<circle cx="51.00" cy="12.75" r="0.272"/>
-<circle cx="52.50" cy="12.75" r="0.272"/>
-<circle cx="54.00" cy="12.75" r="0.272"/>
-<circle cx="55.50" cy="12.75" r="0.272"/>
-<circle cx="57.00" cy="12.75" r="0.272"/>
-<circle cx="58.50" cy="12.75" r="0.272"/>
-<circle cx="60.00" cy="12.75" r="0.272"/>
-<circle cx="61.50" cy="12.75" r="0.272"/>
-<circle cx="63.00" cy="12.75" r="0.272"/>
-<circle cx="64.50" cy="12.75" r="0.272"/>
-<circle cx="66.00" cy="12.75" r="0.272"/>
-<circle cx="67.50" cy="12.75" r="0.272"/>
-<circle cx="69.00" cy="12.75" r="0.272"/>
-<circle cx="70.50" cy="12.75" r="0.272"/>
-<circle cx="72.00" cy="12.75" r="0.272"/>
-<circle cx="73.50" cy="12.75" r="0.272"/>
-<circle cx="75.00" cy="12.75" r="0.272"/>
-<circle cx="76.50" cy="12.75" r="0.272"/>
-<circle cx="78.00" cy="12.75" r="0.272"/>
-<circle cx="79.50" cy="12.75" r="0.272"/>
-<circle cx="81.00" cy="12.75" r="0.272"/>
-<circle cx="82.50" cy="12.75" r="0.272"/>
-<circle cx="84.00" cy="12.75" r="0.272"/>
-<circle cx="0.75" cy="14.25" r="0.303"/>
-<circle cx="2.25" cy="14.25" r="0.303"/>
-<circle cx="3.75" cy="14.25" r="0.303"/>
-<circle cx="5.25" cy="14.25" r="0.303"/>
-<circle cx="6.75" cy="14.25" r="0.303"/>
-<circle cx="8.25" cy="14.25" r="0.303"/>
-<circle cx="9.75" cy="14.25" r="0.303"/>
-<circle cx="11.25" cy="14.25" r="0.303"/>
-<circle cx="12.75" cy="14.25" r="0.303"/>
-<circle cx="14.25" cy="14.25" r="0.303"/>
-<circle cx="15.75" cy="14.25" r="0.303"/>
-<circle cx="17.25" cy="14.25" r="0.303"/>
-<circle cx="18.75" cy="14.25" r="0.303"/>
-<circle cx="20.25" cy="14.25" r="0.303"/>
-<circle cx="21.75" cy="14.25" r="0.303"/>
-<circle cx="23.25" cy="14.25" r="0.303"/>
-<circle cx="24.75" cy="14.25" r="0.303"/>
-<circle cx="26.25" cy="14.25" r="0.303"/>
-<circle cx="27.75" cy="14.25" r="0.303"/>
-<circle cx="29.25" cy="14.25" r="0.303"/>
-<circle cx="30.75" cy="14.25" r="0.303"/>
-<circle cx="32.25" cy="14.25" r="0.303"/>
-<circle cx="33.75" cy="14.25" r="0.303"/>
-<circle cx="35.25" cy="14.25" r="0.303"/>
-<circle cx="36.75" cy="14.25" r="0.303"/>
-<circle cx="38.25" cy="14.25" r="0.303"/>
-<circle cx="39.75" cy="14.25" r="0.303"/>
-<circle cx="41.25" cy="14.25" r="0.303"/>
-<circle cx="42.75" cy="14.25" r="0.303"/>
-<circle cx="44.25" cy="14.25" r="0.303"/>
-<circle cx="45.75" cy="14.25" r="0.303"/>
-<circle cx="47.25" cy="14.25" r="0.303"/>
-<circle cx="48.75" cy="14.25" r="0.303"/>
-<circle cx="50.25" cy="14.25" r="0.303"/>
-<circle cx="51.75" cy="14.25" r="0.303"/>
-<circle cx="53.25" cy="14.25" r="0.303"/>
-<circle cx="54.75" cy="14.25" r="0.303"/>
-<circle cx="56.25" cy="14.25" r="0.303"/>
-<circle cx="57.75" cy="14.25" r="0.303"/>
-<circle cx="59.25" cy="14.25" r="0.303"/>
-<circle cx="60.75" cy="14.25" r="0.303"/>
-<circle cx="62.25" cy="14.25" r="0.303"/>
-<circle cx="63.75" cy="14.25" r="0.303"/>
-<circle cx="65.25" cy="14.25" r="0.303"/>
-<circle cx="66.75" cy="14.25" r="0.303"/>
-<circle cx="68.25" cy="14.25" r="0.303"/>
-<circle cx="69.75" cy="14.25" r="0.303"/>
-<circle cx="71.25" cy="14.25" r="0.303"/>
-<circle cx="72.75" cy="14.25" r="0.303"/>
-<circle cx="74.25" cy="14.25" r="0.303"/>
-<circle cx="75.75" cy="14.25" r="0.303"/>
-<circle cx="77.25" cy="14.25" r="0.303"/>
-<circle cx="78.75" cy="14.25" r="0.303"/>
-<circle cx="80.25" cy="14.25" r="0.303"/>
-<circle cx="81.75" cy="14.25" r="0.303"/>
-<circle cx="83.25" cy="14.25" r="0.303"/>
-<circle cx="0.00" cy="15.75" r="0.334"/>
-<circle cx="1.50" cy="15.75" r="0.334"/>
-<circle cx="3.00" cy="15.75" r="0.334"/>
-<circle cx="4.50" cy="15.75" r="0.334"/>
-<circle cx="6.00" cy="15.75" r="0.334"/>
-<circle cx="7.50" cy="15.75" r="0.334"/>
-<circle cx="9.00" cy="15.75" r="0.334"/>
-<circle cx="10.50" cy="15.75" r="0.334"/>
-<circle cx="12.00" cy="15.75" r="0.334"/>
-<circle cx="13.50" cy="15.75" r="0.334"/>
-<circle cx="15.00" cy="15.75" r="0.334"/>
-<circle cx="16.50" cy="15.75" r="0.334"/>
-<circle cx="18.00" cy="15.75" r="0.334"/>
-<circle cx="19.50" cy="15.75" r="0.334"/>
-<circle cx="21.00" cy="15.75" r="0.334"/>
-<circle cx="22.50" cy="15.75" r="0.334"/>
-<circle cx="24.00" cy="15.75" r="0.334"/>
-<circle cx="25.50" cy="15.75" r="0.334"/>
-<circle cx="27.00" cy="15.75" r="0.334"/>
-<circle cx="28.50" cy="15.75" r="0.334"/>
-<circle cx="30.00" cy="15.75" r="0.334"/>
-<circle cx="31.50" cy="15.75" r="0.334"/>
-<circle cx="33.00" cy="15.75" r="0.334"/>
-<circle cx="34.50" cy="15.75" r="0.334"/>
-<circle cx="36.00" cy="15.75" r="0.334"/>
-<circle cx="37.50" cy="15.75" r="0.334"/>
-<circle cx="39.00" cy="15.75" r="0.334"/>
-<circle cx="40.50" cy="15.75" r="0.334"/>
-<circle cx="42.00" cy="15.75" r="0.334"/>
-<circle cx="43.50" cy="15.75" r="0.334"/>
-<circle cx="45.00" cy="15.75" r="0.334"/>
-<circle cx="46.50" cy="15.75" r="0.334"/>
-<circle cx="48.00" cy="15.75" r="0.334"/>
-<circle cx="49.50" cy="15.75" r="0.334"/>
-<circle cx="51.00" cy="15.75" r="0.334"/>
-<circle cx="52.50" cy="15.75" r="0.334"/>
-<circle cx="54.00" cy="15.75" r="0.334"/>
-<circle cx="55.50" cy="15.75" r="0.334"/>
-<circle cx="57.00" cy="15.75" r="0.334"/>
-<circle cx="58.50" cy="15.75" r="0.334"/>
-<circle cx="60.00" cy="15.75" r="0.334"/>
-<circle cx="61.50" cy="15.75" r="0.334"/>
-<circle cx="63.00" cy="15.75" r="0.334"/>
-<circle cx="64.50" cy="15.75" r="0.334"/>
-<circle cx="66.00" cy="15.75" r="0.334"/>
-<circle cx="67.50" cy="15.75" r="0.334"/>
-<circle cx="69.00" cy="15.75" r="0.334"/>
-<circle cx="70.50" cy="15.75" r="0.334"/>
-<circle cx="72.00" cy="15.75" r="0.334"/>
-<circle cx="73.50" cy="15.75" r="0.334"/>
-<circle cx="75.00" cy="15.75" r="0.334"/>
-<circle cx="76.50" cy="15.75" r="0.334"/>
-<circle cx="78.00" cy="15.75" r="0.334"/>
-<circle cx="79.50" cy="15.75" r="0.334"/>
-<circle cx="81.00" cy="15.75" r="0.334"/>
-<circle cx="82.50" cy="15.75" r="0.334"/>
-<circle cx="84.00" cy="15.75" r="0.334"/>
-<circle cx="0.75" cy="17.25" r="0.365"/>
-<circle cx="2.25" cy="17.25" r="0.365"/>
-<circle cx="3.75" cy="17.25" r="0.365"/>
-<circle cx="5.25" cy="17.25" r="0.365"/>
-<circle cx="6.75" cy="17.25" r="0.365"/>
-<circle cx="8.25" cy="17.25" r="0.365"/>
-<circle cx="9.75" cy="17.25" r="0.365"/>
-<circle cx="11.25" cy="17.25" r="0.365"/>
-<circle cx="12.75" cy="17.25" r="0.365"/>
-<circle cx="14.25" cy="17.25" r="0.365"/>
-<circle cx="15.75" cy="17.25" r="0.365"/>
-<circle cx="17.25" cy="17.25" r="0.365"/>
-<circle cx="18.75" cy="17.25" r="0.365"/>
-<circle cx="20.25" cy="17.25" r="0.365"/>
-<circle cx="21.75" cy="17.25" r="0.365"/>
-<circle cx="23.25" cy="17.25" r="0.365"/>
-<circle cx="24.75" cy="17.25" r="0.365"/>
-<circle cx="26.25" cy="17.25" r="0.365"/>
-<circle cx="27.75" cy="17.25" r="0.365"/>
-<circle cx="29.25" cy="17.25" r="0.365"/>
-<circle cx="30.75" cy="17.25" r="0.365"/>
-<circle cx="32.25" cy="17.25" r="0.365"/>
-<circle cx="33.75" cy="17.25" r="0.365"/>
-<circle cx="35.25" cy="17.25" r="0.365"/>
-<circle cx="36.75" cy="17.25" r="0.365"/>
-<circle cx="38.25" cy="17.25" r="0.365"/>
-<circle cx="39.75" cy="17.25" r="0.365"/>
-<circle cx="41.25" cy="17.25" r="0.365"/>
-<circle cx="42.75" cy="17.25" r="0.365"/>
-<circle cx="44.25" cy="17.25" r="0.365"/>
-<circle cx="45.75" cy="17.25" r="0.365"/>
-<circle cx="47.25" cy="17.25" r="0.365"/>
-<circle cx="48.75" cy="17.25" r="0.365"/>
-<circle cx="50.25" cy="17.25" r="0.365"/>
-<circle cx="51.75" cy="17.25" r="0.365"/>
-<circle cx="53.25" cy="17.25" r="0.365"/>
-<circle cx="54.75" cy="17.25" r="0.365"/>
-<circle cx="56.25" cy="17.25" r="0.365"/>
-<circle cx="57.75" cy="17.25" r="0.365"/>
-<circle cx="59.25" cy="17.25" r="0.365"/>
-<circle cx="60.75" cy="17.25" r="0.365"/>
-<circle cx="62.25" cy="17.25" r="0.365"/>
-<circle cx="63.75" cy="17.25" r="0.365"/>
-<circle cx="65.25" cy="17.25" r="0.365"/>
-<circle cx="66.75" cy="17.25" r="0.365"/>
-<circle cx="68.25" cy="17.25" r="0.365"/>
-<circle cx="69.75" cy="17.25" r="0.365"/>
-<circle cx="71.25" cy="17.25" r="0.365"/>
-<circle cx="72.75" cy="17.25" r="0.365"/>
-<circle cx="74.25" cy="17.25" r="0.365"/>
-<circle cx="75.75" cy="17.25" r="0.365"/>
-<circle cx="77.25" cy="17.25" r="0.365"/>
-<circle cx="78.75" cy="17.25" r="0.365"/>
-<circle cx="80.25" cy="17.25" r="0.365"/>
-<circle cx="81.75" cy="17.25" r="0.365"/>
-<circle cx="83.25" cy="17.25" r="0.365"/>
-<circle cx="0.00" cy="18.75" r="0.396"/>
-<circle cx="1.50" cy="18.75" r="0.396"/>
-<circle cx="3.00" cy="18.75" r="0.396"/>
-<circle cx="4.50" cy="18.75" r="0.396"/>
-<circle cx="6.00" cy="18.75" r="0.396"/>
-<circle cx="7.50" cy="18.75" r="0.396"/>
-<circle cx="9.00" cy="18.75" r="0.396"/>
-<circle cx="10.50" cy="18.75" r="0.396"/>
-<circle cx="12.00" cy="18.75" r="0.396"/>
-<circle cx="13.50" cy="18.75" r="0.396"/>
-<circle cx="15.00" cy="18.75" r="0.396"/>
-<circle cx="16.50" cy="18.75" r="0.396"/>
-<circle cx="18.00" cy="18.75" r="0.396"/>
-<circle cx="19.50" cy="18.75" r="0.396"/>
-<circle cx="21.00" cy="18.75" r="0.396"/>
-<circle cx="22.50" cy="18.75" r="0.396"/>
-<circle cx="24.00" cy="18.75" r="0.396"/>
-<circle cx="25.50" cy="18.75" r="0.396"/>
-<circle cx="27.00" cy="18.75" r="0.396"/>
-<circle cx="28.50" cy="18.75" r="0.396"/>
-<circle cx="30.00" cy="18.75" r="0.396"/>
-<circle cx="31.50" cy="18.75" r="0.396"/>
-<circle cx="33.00" cy="18.75" r="0.396"/>
-<circle cx="34.50" cy="18.75" r="0.396"/>
-<circle cx="36.00" cy="18.75" r="0.396"/>
-<circle cx="37.50" cy="18.75" r="0.396"/>
-<circle cx="39.00" cy="18.75" r="0.396"/>
-<circle cx="40.50" cy="18.75" r="0.396"/>
-<circle cx="42.00" cy="18.75" r="0.396"/>
-<circle cx="43.50" cy="18.75" r="0.396"/>
-<circle cx="45.00" cy="18.75" r="0.396"/>
-<circle cx="46.50" cy="18.75" r="0.396"/>
-<circle cx="48.00" cy="18.75" r="0.396"/>
-<circle cx="49.50" cy="18.75" r="0.396"/>
-<circle cx="51.00" cy="18.75" r="0.396"/>
-<circle cx="52.50" cy="18.75" r="0.396"/>
-<circle cx="54.00" cy="18.75" r="0.396"/>
-<circle cx="55.50" cy="18.75" r="0.396"/>
-<circle cx="57.00" cy="18.75" r="0.396"/>
-<circle cx="58.50" cy="18.75" r="0.396"/>
-<circle cx="60.00" cy="18.75" r="0.396"/>
-<circle cx="61.50" cy="18.75" r="0.396"/>
-<circle cx="63.00" cy="18.75" r="0.396"/>
-<circle cx="64.50" cy="18.75" r="0.396"/>
-<circle cx="66.00" cy="18.75" r="0.396"/>
-<circle cx="67.50" cy="18.75" r="0.396"/>
-<circle cx="69.00" cy="18.75" r="0.396"/>
-<circle cx="70.50" cy="18.75" r="0.396"/>
-<circle cx="72.00" cy="18.75" r="0.396"/>
-<circle cx="73.50" cy="18.75" r="0.396"/>
-<circle cx="75.00" cy="18.75" r="0.396"/>
-<circle cx="76.50" cy="18.75" r="0.396"/>
-<circle cx="78.00" cy="18.75" r="0.396"/>
-<circle cx="79.50" cy="18.75" r="0.396"/>
-<circle cx="81.00" cy="18.75" r="0.396"/>
-<circle cx="82.50" cy="18.75" r="0.396"/>
-<circle cx="84.00" cy="18.75" r="0.396"/>
-<circle cx="0.75" cy="20.25" r="0.426"/>
-<circle cx="2.25" cy="20.25" r="0.426"/>
-<circle cx="3.75" cy="20.25" r="0.426"/>
-<circle cx="5.25" cy="20.25" r="0.426"/>
-<circle cx="6.75" cy="20.25" r="0.426"/>
-<circle cx="8.25" cy="20.25" r="0.426"/>
-<circle cx="9.75" cy="20.25" r="0.426"/>
-<circle cx="11.25" cy="20.25" r="0.426"/>
-<circle cx="12.75" cy="20.25" r="0.426"/>
-<circle cx="14.25" cy="20.25" r="0.426"/>
-<circle cx="15.75" cy="20.25" r="0.426"/>
-<circle cx="17.25" cy="20.25" r="0.426"/>
-<circle cx="18.75" cy="20.25" r="0.426"/>
-<circle cx="20.25" cy="20.25" r="0.426"/>
-<circle cx="21.75" cy="20.25" r="0.426"/>
-<circle cx="23.25" cy="20.25" r="0.426"/>
-<circle cx="24.75" cy="20.25" r="0.426"/>
-<circle cx="26.25" cy="20.25" r="0.426"/>
-<circle cx="27.75" cy="20.25" r="0.426"/>
-<circle cx="29.25" cy="20.25" r="0.426"/>
-<circle cx="30.75" cy="20.25" r="0.426"/>
-<circle cx="32.25" cy="20.25" r="0.426"/>
-<circle cx="33.75" cy="20.25" r="0.426"/>
-<circle cx="35.25" cy="20.25" r="0.426"/>
-<circle cx="36.75" cy="20.25" r="0.426"/>
-<circle cx="38.25" cy="20.25" r="0.426"/>
-<circle cx="39.75" cy="20.25" r="0.426"/>
-<circle cx="41.25" cy="20.25" r="0.426"/>
-<circle cx="42.75" cy="20.25" r="0.426"/>
-<circle cx="44.25" cy="20.25" r="0.426"/>
-<circle cx="45.75" cy="20.25" r="0.426"/>
-<circle cx="47.25" cy="20.25" r="0.426"/>
-<circle cx="48.75" cy="20.25" r="0.426"/>
-<circle cx="50.25" cy="20.25" r="0.426"/>
-<circle cx="51.75" cy="20.25" r="0.426"/>
-<circle cx="53.25" cy="20.25" r="0.426"/>
-<circle cx="54.75" cy="20.25" r="0.426"/>
-<circle cx="56.25" cy="20.25" r="0.426"/>
-<circle cx="57.75" cy="20.25" r="0.426"/>
-<circle cx="59.25" cy="20.25" r="0.426"/>
-<circle cx="60.75" cy="20.25" r="0.426"/>
-<circle cx="62.25" cy="20.25" r="0.426"/>
-<circle cx="63.75" cy="20.25" r="0.426"/>
-<circle cx="65.25" cy="20.25" r="0.426"/>
-<circle cx="66.75" cy="20.25" r="0.426"/>
-<circle cx="68.25" cy="20.25" r="0.426"/>
-<circle cx="69.75" cy="20.25" r="0.426"/>
-<circle cx="71.25" cy="20.25" r="0.426"/>
-<circle cx="72.75" cy="20.25" r="0.426"/>
-<circle cx="74.25" cy="20.25" r="0.426"/>
-<circle cx="75.75" cy="20.25" r="0.426"/>
-<circle cx="77.25" cy="20.25" r="0.426"/>
-<circle cx="78.75" cy="20.25" r="0.426"/>
-<circle cx="80.25" cy="20.25" r="0.426"/>
-<circle cx="81.75" cy="20.25" r="0.426"/>
-<circle cx="83.25" cy="20.25" r="0.426"/>
-<circle cx="0.00" cy="21.75" r="0.457"/>
-<circle cx="1.50" cy="21.75" r="0.457"/>
-<circle cx="3.00" cy="21.75" r="0.457"/>
-<circle cx="4.50" cy="21.75" r="0.457"/>
-<circle cx="6.00" cy="21.75" r="0.457"/>
-<circle cx="7.50" cy="21.75" r="0.457"/>
-<circle cx="9.00" cy="21.75" r="0.457"/>
-<circle cx="10.50" cy="21.75" r="0.457"/>
-<circle cx="12.00" cy="21.75" r="0.457"/>
-<circle cx="13.50" cy="21.75" r="0.457"/>
-<circle cx="15.00" cy="21.75" r="0.457"/>
-<circle cx="16.50" cy="21.75" r="0.457"/>
-<circle cx="18.00" cy="21.75" r="0.457"/>
-<circle cx="19.50" cy="21.75" r="0.457"/>
-<circle cx="21.00" cy="21.75" r="0.457"/>
-<circle cx="22.50" cy="21.75" r="0.457"/>
-<circle cx="24.00" cy="21.75" r="0.457"/>
-<circle cx="25.50" cy="21.75" r="0.457"/>
-<circle cx="27.00" cy="21.75" r="0.457"/>
-<circle cx="28.50" cy="21.75" r="0.457"/>
-<circle cx="30.00" cy="21.75" r="0.457"/>
-<circle cx="31.50" cy="21.75" r="0.457"/>
-<circle cx="33.00" cy="21.75" r="0.457"/>
-<circle cx="34.50" cy="21.75" r="0.457"/>
-<circle cx="36.00" cy="21.75" r="0.457"/>
-<circle cx="37.50" cy="21.75" r="0.457"/>
-<circle cx="39.00" cy="21.75" r="0.457"/>
-<circle cx="40.50" cy="21.75" r="0.457"/>
-<circle cx="42.00" cy="21.75" r="0.457"/>
-<circle cx="43.50" cy="21.75" r="0.457"/>
-<circle cx="45.00" cy="21.75" r="0.457"/>
-<circle cx="46.50" cy="21.75" r="0.457"/>
-<circle cx="48.00" cy="21.75" r="0.457"/>
-<circle cx="49.50" cy="21.75" r="0.457"/>
-<circle cx="51.00" cy="21.75" r="0.457"/>
-<circle cx="52.50" cy="21.75" r="0.457"/>
-<circle cx="54.00" cy="21.75" r="0.457"/>
-<circle cx="55.50" cy="21.75" r="0.457"/>
-<circle cx="57.00" cy="21.75" r="0.457"/>
-<circle cx="58.50" cy="21.75" r="0.457"/>
-<circle cx="60.00" cy="21.75" r="0.457"/>
-<circle cx="61.50" cy="21.75" r="0.457"/>
-<circle cx="63.00" cy="21.75" r="0.457"/>
-<circle cx="64.50" cy="21.75" r="0.457"/>
-<circle cx="66.00" cy="21.75" r="0.457"/>
-<circle cx="67.50" cy="21.75" r="0.457"/>
-<circle cx="69.00" cy="21.75" r="0.457"/>
-<circle cx="70.50" cy="21.75" r="0.457"/>
-<circle cx="72.00" cy="21.75" r="0.457"/>
-<circle cx="73.50" cy="21.75" r="0.457"/>
-<circle cx="75.00" cy="21.75" r="0.457"/>
-<circle cx="76.50" cy="21.75" r="0.457"/>
-<circle cx="78.00" cy="21.75" r="0.457"/>
-<circle cx="79.50" cy="21.75" r="0.457"/>
-<circle cx="81.00" cy="21.75" r="0.457"/>
-<circle cx="82.50" cy="21.75" r="0.457"/>
-<circle cx="84.00" cy="21.75" r="0.457"/>
-<circle cx="0.75" cy="23.25" r="0.488"/>
-<circle cx="2.25" cy="23.25" r="0.488"/>
-<circle cx="3.75" cy="23.25" r="0.488"/>
-<circle cx="5.25" cy="23.25" r="0.488"/>
-<circle cx="6.75" cy="23.25" r="0.488"/>
-<circle cx="8.25" cy="23.25" r="0.488"/>
-<circle cx="9.75" cy="23.25" r="0.488"/>
-<circle cx="11.25" cy="23.25" r="0.488"/>
-<circle cx="12.75" cy="23.25" r="0.488"/>
-<circle cx="14.25" cy="23.25" r="0.488"/>
-<circle cx="15.75" cy="23.25" r="0.488"/>
-<circle cx="17.25" cy="23.25" r="0.488"/>
-<circle cx="18.75" cy="23.25" r="0.488"/>
-<circle cx="20.25" cy="23.25" r="0.488"/>
-<circle cx="21.75" cy="23.25" r="0.488"/>
-<circle cx="23.25" cy="23.25" r="0.488"/>
-<circle cx="24.75" cy="23.25" r="0.488"/>
-<circle cx="26.25" cy="23.25" r="0.488"/>
-<circle cx="27.75" cy="23.25" r="0.488"/>
-<circle cx="29.25" cy="23.25" r="0.488"/>
-<circle cx="30.75" cy="23.25" r="0.488"/>
-<circle cx="32.25" cy="23.25" r="0.488"/>
-<circle cx="33.75" cy="23.25" r="0.488"/>
-<circle cx="35.25" cy="23.25" r="0.488"/>
-<circle cx="36.75" cy="23.25" r="0.488"/>
-<circle cx="38.25" cy="23.25" r="0.488"/>
-<circle cx="39.75" cy="23.25" r="0.488"/>
-<circle cx="41.25" cy="23.25" r="0.488"/>
-<circle cx="42.75" cy="23.25" r="0.488"/>
-<circle cx="44.25" cy="23.25" r="0.488"/>
-<circle cx="45.75" cy="23.25" r="0.488"/>
-<circle cx="47.25" cy="23.25" r="0.488"/>
-<circle cx="48.75" cy="23.25" r="0.488"/>
-<circle cx="50.25" cy="23.25" r="0.488"/>
-<circle cx="51.75" cy="23.25" r="0.488"/>
-<circle cx="53.25" cy="23.25" r="0.488"/>
-<circle cx="54.75" cy="23.25" r="0.488"/>
-<circle cx="56.25" cy="23.25" r="0.488"/>
-<circle cx="57.75" cy="23.25" r="0.488"/>
-<circle cx="59.25" cy="23.25" r="0.488"/>
-<circle cx="60.75" cy="23.25" r="0.488"/>
-<circle cx="62.25" cy="23.25" r="0.488"/>
-<circle cx="63.75" cy="23.25" r="0.488"/>
-<circle cx="65.25" cy="23.25" r="0.488"/>
-<circle cx="66.75" cy="23.25" r="0.488"/>
-<circle cx="68.25" cy="23.25" r="0.488"/>
-<circle cx="69.75" cy="23.25" r="0.488"/>
-<circle cx="71.25" cy="23.25" r="0.488"/>
-<circle cx="72.75" cy="23.25" r="0.488"/>
-<circle cx="74.25" cy="23.25" r="0.488"/>
-<circle cx="75.75" cy="23.25" r="0.488"/>
-<circle cx="77.25" cy="23.25" r="0.488"/>
-<circle cx="78.75" cy="23.25" r="0.488"/>
-<circle cx="80.25" cy="23.25" r="0.488"/>
-<circle cx="81.75" cy="23.25" r="0.488"/>
-<circle cx="83.25" cy="23.25" r="0.488"/>
-<circle cx="0.00" cy="24.75" r="0.519"/>
-<circle cx="1.50" cy="24.75" r="0.519"/>
-<circle cx="3.00" cy="24.75" r="0.519"/>
-<circle cx="4.50" cy="24.75" r="0.519"/>
-<circle cx="6.00" cy="24.75" r="0.519"/>
-<circle cx="7.50" cy="24.75" r="0.519"/>
-<circle cx="9.00" cy="24.75" r="0.519"/>
-<circle cx="10.50" cy="24.75" r="0.519"/>
-<circle cx="12.00" cy="24.75" r="0.519"/>
-<circle cx="13.50" cy="24.75" r="0.519"/>
-<circle cx="15.00" cy="24.75" r="0.519"/>
-<circle cx="16.50" cy="24.75" r="0.519"/>
-<circle cx="18.00" cy="24.75" r="0.519"/>
-<circle cx="19.50" cy="24.75" r="0.519"/>
-<circle cx="21.00" cy="24.75" r="0.519"/>
-<circle cx="22.50" cy="24.75" r="0.519"/>
-<circle cx="24.00" cy="24.75" r="0.519"/>
-<circle cx="25.50" cy="24.75" r="0.519"/>
-<circle cx="27.00" cy="24.75" r="0.519"/>
-<circle cx="28.50" cy="24.75" r="0.519"/>
-<circle cx="30.00" cy="24.75" r="0.519"/>
-<circle cx="31.50" cy="24.75" r="0.519"/>
-<circle cx="33.00" cy="24.75" r="0.519"/>
-<circle cx="34.50" cy="24.75" r="0.519"/>
-<circle cx="36.00" cy="24.75" r="0.519"/>
-<circle cx="37.50" cy="24.75" r="0.519"/>
-<circle cx="39.00" cy="24.75" r="0.519"/>
-<circle cx="40.50" cy="24.75" r="0.519"/>
-<circle cx="42.00" cy="24.75" r="0.519"/>
-<circle cx="43.50" cy="24.75" r="0.519"/>
-<circle cx="45.00" cy="24.75" r="0.519"/>
-<circle cx="46.50" cy="24.75" r="0.519"/>
-<circle cx="48.00" cy="24.75" r="0.519"/>
-<circle cx="49.50" cy="24.75" r="0.519"/>
-<circle cx="51.00" cy="24.75" r="0.519"/>
-<circle cx="52.50" cy="24.75" r="0.519"/>
-<circle cx="54.00" cy="24.75" r="0.519"/>
-<circle cx="55.50" cy="24.75" r="0.519"/>
-<circle cx="57.00" cy="24.75" r="0.519"/>
-<circle cx="58.50" cy="24.75" r="0.519"/>
-<circle cx="60.00" cy="24.75" r="0.519"/>
-<circle cx="61.50" cy="24.75" r="0.519"/>
-<circle cx="63.00" cy="24.75" r="0.519"/>
-<circle cx="64.50" cy="24.75" r="0.519"/>
-<circle cx="66.00" cy="24.75" r="0.519"/>
-<circle cx="67.50" cy="24.75" r="0.519"/>
-<circle cx="69.00" cy="24.75" r="0.519"/>
-<circle cx="70.50" cy="24.75" r="0.519"/>
-<circle cx="72.00" cy="24.75" r="0.519"/>
-<circle cx="73.50" cy="24.75" r="0.519"/>
-<circle cx="75.00" cy="24.75" r="0.519"/>
-<circle cx="76.50" cy="24.75" r="0.519"/>
-<circle cx="78.00" cy="24.75" r="0.519"/>
-<circle cx="79.50" cy="24.75" r="0.519"/>
-<circle cx="81.00" cy="24.75" r="0.519"/>
-<circle cx="82.50" cy="24.75" r="0.519"/>
-<circle cx="84.00" cy="24.75" r="0.519"/>
-<circle cx="0.75" cy="26.25" r="0.550"/>
-<circle cx="2.25" cy="26.25" r="0.550"/>
-<circle cx="3.75" cy="26.25" r="0.550"/>
-<circle cx="5.25" cy="26.25" r="0.550"/>
-<circle cx="6.75" cy="26.25" r="0.550"/>
-<circle cx="8.25" cy="26.25" r="0.550"/>
-<circle cx="9.75" cy="26.25" r="0.550"/>
-<circle cx="11.25" cy="26.25" r="0.550"/>
-<circle cx="12.75" cy="26.25" r="0.550"/>
-<circle cx="14.25" cy="26.25" r="0.550"/>
-<circle cx="15.75" cy="26.25" r="0.550"/>
-<circle cx="17.25" cy="26.25" r="0.550"/>
-<circle cx="18.75" cy="26.25" r="0.550"/>
-<circle cx="20.25" cy="26.25" r="0.550"/>
-<circle cx="21.75" cy="26.25" r="0.550"/>
-<circle cx="23.25" cy="26.25" r="0.550"/>
-<circle cx="24.75" cy="26.25" r="0.550"/>
-<circle cx="26.25" cy="26.25" r="0.550"/>
-<circle cx="27.75" cy="26.25" r="0.550"/>
-<circle cx="29.25" cy="26.25" r="0.550"/>
-<circle cx="30.75" cy="26.25" r="0.550"/>
-<circle cx="32.25" cy="26.25" r="0.550"/>
-<circle cx="33.75" cy="26.25" r="0.550"/>
-<circle cx="35.25" cy="26.25" r="0.550"/>
-<circle cx="36.75" cy="26.25" r="0.550"/>
-<circle cx="38.25" cy="26.25" r="0.550"/>
-<circle cx="39.75" cy="26.25" r="0.550"/>
-<circle cx="41.25" cy="26.25" r="0.550"/>
-<circle cx="42.75" cy="26.25" r="0.550"/>
-<circle cx="44.25" cy="26.25" r="0.550"/>
-<circle cx="45.75" cy="26.25" r="0.550"/>
-<circle cx="47.25" cy="26.25" r="0.550"/>
-<circle cx="48.75" cy="26.25" r="0.550"/>
-<circle cx="50.25" cy="26.25" r="0.550"/>
-<circle cx="51.75" cy="26.25" r="0.550"/>
-<circle cx="53.25" cy="26.25" r="0.550"/>
-<circle cx="54.75" cy="26.25" r="0.550"/>
-<circle cx="56.25" cy="26.25" r="0.550"/>
-<circle cx="57.75" cy="26.25" r="0.550"/>
-<circle cx="59.25" cy="26.25" r="0.550"/>
-<circle cx="60.75" cy="26.25" r="0.550"/>
-<circle cx="62.25" cy="26.25" r="0.550"/>
-<circle cx="63.75" cy="26.25" r="0.550"/>
-<circle cx="65.25" cy="26.25" r="0.550"/>
-<circle cx="66.75" cy="26.25" r="0.550"/>
-<circle cx="68.25" cy="26.25" r="0.550"/>
-<circle cx="69.75" cy="26.25" r="0.550"/>
-<circle cx="71.25" cy="26.25" r="0.550"/>
-<circle cx="72.75" cy="26.25" r="0.550"/>
-<circle cx="74.25" cy="26.25" r="0.550"/>
-<circle cx="75.75" cy="26.25" r="0.550"/>
-<circle cx="77.25" cy="26.25" r="0.550"/>
-<circle cx="78.75" cy="26.25" r="0.550"/>
-<circle cx="80.25" cy="26.25" r="0.550"/>
-<circle cx="81.75" cy="26.25" r="0.550"/>
-<circle cx="83.25" cy="26.25" r="0.550"/>
-</symbol>
-
-    <!-- pattern-3: dense uniform dots, fading via gradient mask (compact, scalable) -->
+    <!-- pattern-3: halftone dot field, gradient-masked fade from top to bottom -->
     <symbol id="halftone-3" viewBox="0 0 120 30">
       <defs>
         <linearGradient id="ht3-grad" x1="0" y1="0" x2="0" y2="1">
           <stop offset="0%" stop-color="black"/>
-          <stop offset="40%" stop-color="black"/>
+          <stop offset="30%" stop-color="black"/>
+          <stop offset="60%" stop-color="#333"/>
+          <stop offset="80%" stop-color="#888"/>
           <stop offset="100%" stop-color="white"/>
         </linearGradient>
         <mask id="ht3-mask"><rect width="120" height="30" fill="url(#ht3-grad)"/></mask>
-        <pattern id="ht3-dots" width="0.7" height="0.7" patternUnits="userSpaceOnUse">
-          <circle cx="0.35" cy="0.35" r="0.13" fill="white"/>
+        <pattern id="ht3-dots" width="0.9" height="0.9" patternUnits="userSpaceOnUse">
+          <circle cx="0.45" cy="0.45" r="0.18" fill="white"/>
         </pattern>
       </defs>
       <rect width="120" height="30" fill="url(#ht3-dots)" mask="url(#ht3-mask)"/>
@@ -2151,6 +981,13 @@
         <line x1="16" y1="3" x2="16" y2="7"/>
       </g>
     </symbol>
+    <symbol id="ic-coins" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <ellipse cx="12" cy="7" rx="8" ry="3.5"/>
+        <path d="M 4 7 V 11 C 4 12.9 7.6 14.5 12 14.5 C 16.4 14.5 20 12.9 20 11 V 7"/>
+        <path d="M 4 11 V 15 C 4 16.9 7.6 18.5 12 18.5 C 16.4 18.5 20 16.9 20 15 V 11"/>
+      </g>
+    </symbol>
     <symbol id="ic-dollar" viewBox="0 0 24 24">
       <g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <path d="M 16 8 C 16 6 14 5 12 5 C 10 5 8 6 8 8 C 8 10 10 11 12 11 C 14 11 16 12 16 14 C 16 16 14 17 12 17 C 10 17 8 16 8 14"/>
@@ -2200,15 +1037,15 @@
 
   <!-- 0 — Cover -->
   <section class="slide cover" data-slide>
-    <svg class="bg-halftone bottom" viewBox="0 0 120 30" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><use href="#halftone-3"/></svg>
+    <div class="aurora-bottom" aria-hidden="true"></div>
     <div class="slide-inner center stack">
       <img class="mlc-mark" src="assets/mldi-logo.svg" alt="MLDI">
-      <h1>AI Employees</h1>
-      <div class="tag">Internal master deck &middot; v73</div>
+      <h1>Free your team from the repetitive work they&rsquo;re stuck on.</h1>
+      <div class="tag">Internal master deck &middot; v122</div>
     </div>
   </section>
 
-  <!-- 1 — Hook (animated clock) -->
+  <!-- 1 — Your team burns hours on it -->
   <section class="slide" data-slide>
     <div class="slide-inner center stack">
       <svg class="clock-anim" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
@@ -2221,58 +1058,35 @@
           <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="14.4s" repeatCount="indefinite"/>
         </line>
       </svg>
-      <p class="hook">What if your next hire cost only $500 a month and worked 24/7, without ever stopping?</p>
+      <p class="hook">Your team burns hours on it. You burn money on it.</p>
+      <p>Writing content. Chasing leads. Checking contracts. The same repetitive work, every week, costing you both ways.</p>
     </div>
   </section>
 
-  <!-- 2 — Problem -->
+  <!-- 2 — What if it just got handled? -->
   <section class="slide" data-slide>
     <div class="slide-inner stack">
-      <h2>Every business pays salaries for repetitive work.</h2>
-      <ul class="icon-list">
-        <li><svg class="ic-sm"><use href="#ic-pencil"/></svg><span>Writing content.</span></li>
-        <li><svg class="ic-sm"><use href="#ic-chat"/></svg><span>Following up on leads.</span></li>
-        <li><svg class="ic-sm"><use href="#ic-doc"/></svg><span>Checking contracts.</span></li>
-      </ul>
+      <h2>What if it just got handled?</h2>
+      <p>Quietly, in the background, without you chasing anyone. The work gets done, the cost drops, and you finally get to spend your attention where it actually pays off.</p>
+      <p>That&rsquo;s a Digital Employee.</p>
     </div>
   </section>
 
-  <!-- 3 — An AI Employee does the same work for a fraction (Human vs AI comparison) -->
-  <section class="slide wide" data-slide>
-    <div class="slide-inner stack">
-      <h2>An AI Employee does that same work for a fraction of the price.</h2>
-      <table class="vs">
-        <thead>
-          <tr>
-            <th class="cat"></th>
-            <th class="human">Human employee</th>
-            <th class="ai">AI Employee</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td class="cat"><span class="cat-row"><svg class="ic-sm"><use href="#ic-pencil"/></svg><span>Content creation</span></span></td><td class="human">$2,500/mo</td><td class="ai">$500/mo</td></tr>
-          <tr><td class="cat"><span class="cat-row"><svg class="ic-sm"><use href="#ic-chat"/></svg><span>Lead follow-up</span></span></td><td class="human">$4,000/mo</td><td class="ai">$600/mo</td></tr>
-          <tr><td class="cat"><span class="cat-row"><svg class="ic-sm"><use href="#ic-doc"/></svg><span>Contract renewal</span></span></td><td class="human">$6,000/mo</td><td class="ai">$700/mo</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 4 — What an AI Employee is (definition + generic bot) -->
+  <!-- 4 — What a Digital Employee is -->
   <section class="slide" data-slide>
     <div class="slide-inner center stack">
       <div class="face-avatar"><svg aria-hidden="true"><use href="#face-bot"/></svg></div>
-      <div class="eyebrow">What an AI Employee is</div>
-      <h2>A digital worker that does one human job, start to finish, on its own.</h2>
-      <p class="lead">You don&rsquo;t manage it. You talk to it.</p>
+      <div class="eyebrow">What a Digital Employee is</div>
+      <h2>A digital worker that takes one job and does it from start to finish, on its own.</h2>
+      <p class="lead">You don&rsquo;t manage it. You talk to it, the way you&rsquo;d brief someone new.</p>
     </div>
   </section>
 
-  <!-- 4b — Works with your tools -->
+  <!-- 4 — Works with your tools -->
   <section class="slide" data-slide>
     <div class="slide-inner center stack">
       <div class="face-avatar"><svg aria-hidden="true"><use href="#face-bot"/></svg></div>
-      <div class="eyebrow">What an AI Employee is</div>
+      <div class="eyebrow">What a Digital Employee is</div>
       <h2>It works with the tools you already use.</h2>
       <div class="platforms">
         <div class="platform"><svg class="ic-md"><use href="#ic-whatsapp"/></svg><span>WhatsApp</span></div>
@@ -2285,48 +1099,50 @@
     </div>
   </section>
 
-  <!-- 4c — Break: Meet our AI Employees -->
+  <!-- 5 — So what does one look like? -->
   <section class="slide meet" data-slide>
+    <div class="aurora-bottom aurora-soft" aria-hidden="true"></div>
     <div class="slide-inner center stack">
-      <h2>Meet our AI Employees.</h2>
+      <h2>So what does one actually look like?</h2>
+      <p>Three of them are already working in real businesses. Here they are.</p>
     </div>
   </section>
 
-  <!-- 5 — Meet Maya -->
+  <!-- 6 — Meet Maya -->
   <section class="slide meet" data-slide>
     <div class="slide-inner center stack">
       <svg class="face-lg"><use href="#face-maya"/></svg>
-      <div class="eyebrow">AI Employee</div>
+      <div class="eyebrow">Digital Employee</div>
       <h1>Maya</h1>
       <div class="role">Content Writer.</div>
     </div>
   </section>
 
-  <!-- 5 — Maya story -->
+  <!-- 7 — Maya story -->
   <section class="slide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
         <svg class="face-mini"><use href="#face-maya"/></svg>
         <span class="eyebrow">Maya &middot; a little story</span>
       </div>
-      <p class="lead">Imagine someone on your team who scans 50 sources overnight and has a fresh article waiting with your morning coffee.</p>
-      <p>That&rsquo;s about 20 a week &mdash; and she never takes a day off.</p>
+      <p class="lead">Imagine someone on your team who scans 50 sources overnight and has fresh articles waiting with your morning coffee.</p>
+      <p>That&rsquo;s about 20 a day, and she never takes a day off.</p>
     </div>
   </section>
 
-  <!-- 6 — Maya proof -->
+  <!-- 8 — Maya proof -->
   <section class="slide" data-slide>
-    <div class="slide-inner stack">
+    <div class="slide-inner stack" style="max-width:860px">
       <div class="eyebrow-row">
         <svg class="face-mini"><use href="#face-maya"/></svg>
         <span class="eyebrow">Maya &middot; already running</span>
       </div>
       <h2>Maya is already running at a medical news outlet.</h2>
-      <p>She cut their content cost from $2,500 a month to $500.</p>
+      <p class="lead">She produces their content for a small fraction of what it used to cost.</p>
     </div>
   </section>
 
-  <!-- 7 — Maya numbers -->
+  <!-- 9 — Maya numbers -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
@@ -2335,28 +1151,27 @@
       </div>
       <table>
         <tbody>
-          <tr><td class="k">Output</td><td class="v">20 pieces of content per week</td></tr>
-          <tr><td class="k">Sources monitored</td><td class="v">50 &mdash; news outlets, competitor sites, medical news</td></tr>
-          <tr><td class="k">Approval</td><td class="v">Never posts alone &mdash; every piece reviewed by a human via email or chat</td></tr>
-          <tr><td class="k">Cost</td><td class="v">$500/month (was $2,500)</td></tr>
-          <tr><td class="k">Savings</td><td class="v">$2,000/month, proven</td></tr>
+          <tr><td class="k">Output</td><td class="v">20 pieces of content per day</td></tr>
+          <tr><td class="k">Sources monitored</td><td class="v">50: news outlets, competitor sites, medical news</td></tr>
+          <tr><td class="k">Approval</td><td class="v">Never posts alone. Every piece reviewed by a human via email or chat</td></tr>
+          <tr><td class="k">Cost</td><td class="v">Content production budget was &#8362;9,000/month. Now &#8362;1,800/month. You keep &#8362;7,200/month.</td></tr>
           <tr><td class="k">Schedule</td><td class="v">24/7, no days off</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 8 — Meet Tom -->
+  <!-- 10 — Meet Tom -->
   <section class="slide meet" data-slide>
     <div class="slide-inner center stack">
       <svg class="face-lg"><use href="#face-tom"/></svg>
-      <div class="eyebrow">AI Employee</div>
+      <div class="eyebrow">Digital Employee</div>
       <h1>Tom</h1>
-      <div class="role">Sales Rep.</div>
+      <div class="role">Sales Representative.</div>
     </div>
   </section>
 
-  <!-- 9 — Tom story -->
+  <!-- 11 — Tom story -->
   <section class="slide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
@@ -2364,12 +1179,12 @@
         <span class="eyebrow">Tom &middot; a little story</span>
       </div>
       <p class="lead">A lead fills your form. 30 seconds later they get a personal WhatsApp.</p>
-      <p>If they don&rsquo;t answer, Tom keeps following up &mdash; WhatsApp, email, on a steady cadence &mdash; for about two weeks until they reply.</p>
-      <p>The moment they reply on any channel, Tom hands the lead off to a human sales rep. Tom doesn&rsquo;t close deals &mdash; his job is consistent follow-up. Your team closes.</p>
+      <p>If they don&rsquo;t answer, Tom keeps following up (WhatsApp, email, on a steady cadence) for about two weeks until they reply.</p>
+      <p>The moment they reply on any channel, Tom hands the lead to your sales team. Tom doesn&rsquo;t close deals. He keeps the follow-up consistent so your people walk into warm conversations.</p>
     </div>
   </section>
 
-  <!-- 10 — Tom proof -->
+  <!-- 12 — Tom proof -->
   <section class="slide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
@@ -2377,15 +1192,15 @@
         <span class="eyebrow">Tom &middot; already running</span>
       </div>
       <h2>Tom is already running at a 13-agent premium real estate brokerage in Miami.</h2>
-      <p>He helps close deals with six zeros.</p>
+      <p>Tom helps streamline high-end real estate sales, handling follow-up on properties from $5M and above.</p>
       <div class="platforms">
         <div class="platform"><svg class="ic-md"><use href="#ic-pin"/></svg><span>Miami, FL</span></div>
-        <div class="platform"><svg class="ic-md"><use href="#ic-dollar"/></svg><span>$3M average deal</span></div>
+        <div class="platform"><svg class="ic-md"><use href="#ic-coins"/></svg><span>$5M+ properties</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 11 — Tom numbers -->
+  <!-- 13 — Tom numbers -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
@@ -2396,93 +1211,51 @@
         <tbody>
           <tr><td class="k">First response</td><td class="v">Under 30 seconds, day or night</td></tr>
           <tr><td class="k">Follow-ups per lead</td><td class="v">Up to 7</td></tr>
-          <tr><td class="k">Channels covered</td><td class="v">2 &mdash; WhatsApp + email</td></tr>
+          <tr><td class="k">Channels covered</td><td class="v">2: WhatsApp + email</td></tr>
           <tr><td class="k">Window</td><td class="v">Two weeks of consistent outreach, then he stands down</td></tr>
           <tr><td class="k">Handoff</td><td class="v">Warm lead, name known, ready for your sales team</td></tr>
-          <tr><td class="k">Schedule</td><td class="v">24/7 &mdash; no leads lost at 2am</td></tr>
+          <tr><td class="k">Schedule</td><td class="v">24/7. No leads lost at 2am</td></tr>
+          <tr><td class="k">Recovered revenue</td><td class="v">Leads lost to slow response convert at near zero. Tom recovers them and hands them off warm. On a typical 13-agent brokerage, that is dozens of additional qualified conversations per month, directly feeding the sales team&rsquo;s pipeline.</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 12 — Meet Ron -->
-  <section class="slide meet" data-slide>
-    <div class="slide-inner center stack">
-      <svg class="face-lg"><use href="#face-ron"/></svg>
-      <div class="eyebrow">AI Employee</div>
-      <h1>Ron</h1>
-      <div class="role">Reactivation Specialist.</div>
-    </div>
-  </section>
-
-  <!-- 13 — Ron story -->
-  <section class="slide" data-slide>
-    <div class="slide-inner stack">
-      <div class="eyebrow-row">
-        <svg class="face-mini"><use href="#face-ron"/></svg>
-        <span class="eyebrow">Ron &middot; a little story</span>
-      </div>
-      <p class="lead">Think about your dead leads from two years ago. The ones nobody called back.</p>
-      <p>Ron picks the warmest and reaches out &mdash; at the right hour for them, whatever timezone they&rsquo;re in.</p>
-      <p>The moment they answer, Ron hands them straight to a human.</p>
-    </div>
-  </section>
-
-  <!-- 14 — Ron numbers -->
-  <section class="slide wide" data-slide>
-    <div class="slide-inner stack">
-      <div class="eyebrow-row">
-        <svg class="face-mini"><use href="#face-ron"/></svg>
-        <span class="eyebrow">Ron &middot; the numbers</span>
-      </div>
-      <table>
-        <tbody>
-          <tr><td class="k">Pipeline watched</td><td class="v">Thousands of dormant leads, continuously</td></tr>
-          <tr><td class="k">Cadence</td><td class="v">24/7 scoring &mdash; warmest first</td></tr>
-          <tr><td class="k">Channels</td><td class="v">WhatsApp + email</td></tr>
-          <tr><td class="k">Hours</td><td class="v">Reaches each prospect during their local daytime &mdash; any timezone</td></tr>
-          <tr><td class="k">Handoff</td><td class="v">The moment a lead replies, Ron passes them straight to a human</td></tr>
-          <tr><td class="k">Output</td><td class="v">Recovered revenue from a pipeline you&rsquo;d written off</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- 15 — Meet Dana -->
+  <!-- 14 — Meet Dana -->
   <section class="slide meet" data-slide>
     <div class="slide-inner center stack">
       <svg class="face-lg"><use href="#face-dana"/></svg>
-      <div class="eyebrow">AI Employee</div>
+      <div class="eyebrow">Digital Employee</div>
       <h1>Dana</h1>
       <div class="role">Contract Renewal Specialist.</div>
     </div>
   </section>
 
-  <!-- 16 — Dana story -->
+  <!-- 15 — Dana story -->
   <section class="slide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
         <svg class="face-mini"><use href="#face-dana"/></svg>
         <span class="eyebrow">Dana &middot; a little story</span>
       </div>
-      <p class="lead">In commercial real estate, you sit on hundreds of contracts &mdash; leases, vendors, service agreements. It&rsquo;s nearly impossible to track them all by hand. One slips past its renewal date and quietly costs you real money.</p>
+      <p class="lead">In commercial real estate, you sit on hundreds of contracts: leases, vendors, service agreements. It&rsquo;s nearly impossible to track them all by hand. One slips past its renewal date and quietly costs you real money.</p>
       <p>Dana watches every one and warns you 60 days out, before the trap closes.</p>
     </div>
   </section>
 
-  <!-- 17 — Dana depth -->
-  <section class="slide" data-slide>
-    <div class="slide-inner stack">
+  <!-- 16 — Dana depth -->
+  <section class="slide vcenter" data-slide>
+    <div class="slide-inner stack" style="max-width:860px">
       <div class="eyebrow-row">
         <svg class="face-mini"><use href="#face-dana"/></svg>
         <span class="eyebrow">Dana &middot; how she works</span>
       </div>
       <h2>Dana knows each contract&rsquo;s terms, its renewal date, and the auto-renewal clauses hiding inside.</h2>
-      <p>She pings the right person with everything they need to act.</p>
+      <p class="lead">She pings the right person with everything they need to act.</p>
     </div>
   </section>
 
-  <!-- 18 — Dana numbers -->
+  <!-- 17 — Dana numbers -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow-row">
@@ -2493,45 +1266,45 @@
         <tbody>
           <tr><td class="k">Contracts watched</td><td class="v">Hundreds, continuously</td></tr>
           <tr><td class="k">Lead time</td><td class="v">60 days before each renewal date</td></tr>
-          <tr><td class="k">Catches</td><td class="v">Auto-renewal clauses hidden in the fine print</td></tr>
           <tr><td class="k">Alerts</td><td class="v">Pings the right person on WhatsApp or email with full context</td></tr>
-          <tr><td class="k">Savings</td><td class="v">Hundreds of thousands in avoidable losses</td></tr>
-          <tr><td class="k">Schedule</td><td class="v">24/7 &mdash; never sleeps on a deadline</td></tr>
+          <tr><td class="k">Savings</td><td class="v">One missed auto-renewal on a single vendor or lease contract can cost &#8362;20,000 silently. Dana catches it 60 days before it happens, every time.</td></tr>
+          <tr><td class="k">Schedule</td><td class="v">24/7. Never sleeps on a deadline</td></tr>
         </tbody>
       </table>
     </div>
   </section>
 
-  <!-- 19 — Like a real hire (the four together) -->
+  <!-- 18 — Every Digital Employee runs the same way -->
   <section class="slide wide" data-slide>
-    <div class="slide-inner stack">
-      <h2>Every AI Employee works like a real hire.</h2>
+    <div class="aurora-top aurora-soft aurora-dim" aria-hidden="true"></div>
+    <div class="aurora-bottom aurora-soft aurora-dim" aria-hidden="true"></div>
+    <div class="slide-inner center stack">
+      <h2>Every Digital Employee runs the same way.</h2>
       <div class="family">
         <div class="family-item"><svg class="face-sm"><use href="#face-maya"/></svg><div class="name">Maya</div></div>
         <div class="family-item"><svg class="face-sm"><use href="#face-tom"/></svg><div class="name">Tom</div></div>
-        <div class="family-item"><svg class="face-sm"><use href="#face-ron"/></svg><div class="name">Ron</div></div>
         <div class="family-item"><svg class="face-sm"><use href="#face-dana"/></svg><div class="name">Dana</div></div>
       </div>
-      <p>Each one works inside your existing tools, on your terms, on your timeline.</p>
-      <p>Same as any employee you bring on. You onboard it, you teach it, you pay it, and it does the work, start to finish.</p>
+      <p>Each one works inside the tools you already have, on your terms, on your timeline.</p>
+      <p>You set it up once, you teach it your way of doing things, and from then on it just does the work.</p>
     </div>
   </section>
 
-  <!-- 20 — How we build it -->
+  <!-- 19 — How we build it -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow">How we build it</div>
       <ol class="steps">
-        <li><div class="num">1</div><div class="name">Discovery &amp; quote</div><div class="desc">2&ndash;3 weeks of deep workflow audit, then a fixed build quote.</div></li>
-        <li><div class="num">2</div><div class="name">Build</div><div class="desc">2&ndash;4 weeks. We build, connect, train it on your data.</div></li>
+        <li><div class="num">1</div><div class="name">Discovery &amp; quote</div><div class="desc">Deep workflow audit, then a fixed build quote.</div></li>
+        <li><div class="num">2</div><div class="name">Build</div><div class="desc">We build, connect, train it on your data.</div></li>
         <li><div class="num">3</div><div class="name">Stabilize</div><div class="desc">Goes live. We stay close 30 days, fix against real use.</div></li>
-        <li><div class="num">4</div><div class="name">Run</div><div class="desc">You use it like any team member. We step back.</div></li>
+        <li><div class="num">4</div><div class="name">Run</div><div class="desc">You use it day to day. We step back.</div></li>
         <li><div class="num">5</div><div class="name">Maintain</div><div class="desc">We keep it running, or teach your team to.</div></li>
       </ol>
     </div>
   </section>
 
-  <!-- Security & compliance -->
+  <!-- 20 — Compliance & Deployment -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow">Compliance &amp; Deployment</div>
@@ -2565,18 +1338,16 @@
     </div>
   </section>
 
-  <!-- 21 — Costs -->
+  <!-- 21 — Investment & timeline -->
   <section class="slide wide" data-slide>
     <div class="slide-inner stack">
       <div class="eyebrow">Investment &amp; timeline</div>
       <table>
         <tbody>
-          <tr><td class="stage">Discovery</td><td class="desc">We map your workflow and come back with a fixed quote.</td><td class="time">2&ndash;4 weeks</td><td class="price">&#8362;15&ndash;25k</td></tr>
-          <tr><td class="stage">Build</td><td class="desc">Design, build, connect, train. One-time.</td><td class="time">From 2 weeks</td><td class="price">From &#8362;30k</td></tr>
-          <tr><td class="stage">Stabilize</td><td class="desc">We stay close and fix against real use.</td><td class="time">2&ndash;4 weeks</td><td class="price">From &#8362;10k</td></tr>
-          <tr><td class="stage">Run / subscriptions</td><td class="desc">Platform, WhatsApp, email, infrastructure. Fixed every month.</td><td class="time">Ongoing</td><td class="price">From &#8362;75/mo</td></tr>
-          <tr><td class="stage">Run / AI usage</td><td class="desc">What the AI burns as it works. You use more, you pay more.</td><td class="time">Ongoing</td><td class="price">&#8362;60+/mo</td></tr>
-          <tr><td class="stage">Run / support</td><td class="desc">Optional. We keep it tuned and adapt it as your business evolves.</td><td class="time">Ongoing</td><td class="price">From &#8362;800/mo</td></tr>
+          <tr><td class="stage">Discovery + Build</td><td class="desc">We map your workflow, then design, build, connect, and train your Digital Employee. One-time.<br><small class="dim">Most builds land between &#8362;20,000 and &#8362;60,000 depending on integrations and complexity.</small></td><td class="price">From &#8362;20,000</td></tr>
+          <tr><td class="stage">Run / support</td><td class="desc">We keep it tuned and adapt it as your business evolves.<br><small class="dim">Depending on build complexity, support costs can vary between &#8362;2,000 and &#8362;4,000 per month.</small></td><td class="price">From &#8362;2,000/mo</td></tr>
+          <tr><td class="stage">Run / subscriptions</td><td class="desc">Platform, WhatsApp, email, infrastructure. Fixed every month.</td><td class="price">From &#8362;75/mo</td></tr>
+          <tr><td class="stage">Run / AI usage</td><td class="desc">What the AI uses as it works. You use more, you pay more.</td><td class="price">From &#8362;60/mo</td></tr>
         </tbody>
       </table>
     </div>
@@ -2615,22 +1386,24 @@
         </g>
       </svg>
       <h2>Your competitors are already doing this.</h2>
-      <p>Right now, companies just like yours are putting AI Employees to work. Every month you wait, they get further ahead. The time to start is now.</p>
+      <p>Right now, businesses your size are putting Digital Employees to work. Every month you wait, they pull a little further ahead. The time to start is now.</p>
     </div>
   </section>
 
   <!-- 23 — Close -->
   <section class="slide close" data-slide>
+    <div class="aurora-bottom" aria-hidden="true"></div>
     <div class="slide-inner center stack">
-      <h2>Your first AI Employee can be live in 30 days.</h2>
-      <p class="lead">Call us.</p>
+      <h2>Let&rsquo;s build your first one.</h2>
+      <p class="lead">Your first Digital Employee can be live in&nbsp;30&nbsp;days.</p>
+      <p>Call us.</p>
       <div>
         <a class="cta-phone" href="tel:+972528834558" aria-label="Call Mark Levi at +972 52 883 4558">
           <svg aria-hidden="true"><use href="#ic-phone"/></svg>
           <span>+972&#8209;52&#8209;883&#8209;4558</span>
         </a>
       </div>
-      <img class="mlc-mark" src="assets/mldi-logo.svg" alt="MLDI" style="margin-top: clamp(40px, 6vw, 80px);">
+      <img class="mlc-mark" src="assets/mldi-logo.svg" alt="MLDI">
     </div>
   </section>
 
