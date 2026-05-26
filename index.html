@@ -745,7 +745,11 @@
 
     /* Brighter, thicker progress bar on mobile */
     .progress { height: 3px; }
-    .progress > i { background: rgba(80,140,255,0.9); }
+    .progress > i {
+      background: linear-gradient(to right, rgba(80,140,255,1), rgba(100,60,230,0.95), rgba(140,40,200,0.9));
+      background-size: calc(100vw) 100%;
+      background-origin: padding-box;
+    }
 
     /* More air between stacked elements */
     .stack > * + * { margin-top: clamp(18px, 3.6vw, 26px); }
