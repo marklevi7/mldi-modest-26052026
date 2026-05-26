@@ -215,23 +215,30 @@
   .cover > .aurora-bottom {
     height: 80%;
     opacity: 1.8;
-    animation: aurora-wave 8s ease-in-out infinite;
+    animation: aurora-drift 20s linear infinite, aurora-breathe 7s ease-in-out infinite;
   }
   .cover > .aurora-bottom::after {
-    animation: aurora-wave-inner 6s ease-in-out infinite;
+    animation: aurora-drift-inner 14s linear infinite reverse, aurora-pulse 9s ease-in-out infinite;
   }
-  @keyframes aurora-wave {
-    0%   { transform: translateX(0)   scaleY(1);    filter: blur(35px); }
-    25%  { transform: translateX(2%)  scaleY(1.08); filter: blur(38px); }
-    50%  { transform: translateX(-1%) scaleY(1.15); filter: blur(32px); }
-    75%  { transform: translateX(1%)  scaleY(1.05); filter: blur(40px); }
-    100% { transform: translateX(0)   scaleY(1);    filter: blur(35px); }
+  @keyframes aurora-drift {
+    0%   { transform: translateX(0)   rotate(0deg); }
+    100% { transform: translateX(-6%) rotate(2deg); }
   }
-  @keyframes aurora-wave-inner {
-    0%   { transform: translateX(0)   scaleY(1);   opacity: 1; }
-    33%  { transform: translateX(-2%) scaleY(1.1); opacity: 0.85; }
-    66%  { transform: translateX(2%)  scaleY(0.9); opacity: 1.1; }
-    100% { transform: translateX(0)   scaleY(1);   opacity: 1; }
+  @keyframes aurora-breathe {
+    0%   { filter: blur(35px); opacity: 1.8; }
+    30%  { filter: blur(28px); opacity: 2;   }
+    60%  { filter: blur(42px); opacity: 1.5; }
+    100% { filter: blur(35px); opacity: 1.8; }
+  }
+  @keyframes aurora-drift-inner {
+    0%   { transform: translateX(0)  skewX(0deg); }
+    100% { transform: translateX(8%) skewX(1.5deg); }
+  }
+  @keyframes aurora-pulse {
+    0%   { opacity: 1;    }
+    40%  { opacity: 0.7;  }
+    70%  { opacity: 1.15; }
+    100% { opacity: 1;    }
   }
   .cover .slide-inner { position: relative; z-index: 1; }
   .cover .tag {
