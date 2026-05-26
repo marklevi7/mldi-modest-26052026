@@ -518,10 +518,9 @@
       background: var(--line-2);
       z-index: 0;
     }
-    ol.steps .num { margin-bottom: 0; grid-row: span 2; align-self: start; position: relative; z-index: 1; border-color: rgba(80,140,255,0.9); color: rgba(80,140,255,0.9); }
-    ol.steps .name { grid-column: 2; color: rgba(80,140,255,0.95); }
-    ol.steps .desc { grid-column: 2; color: rgba(160,185,255,0.8); }
-    ol.steps li:not(:last-child)::before { background: rgba(80,140,255,0.3); }
+    ol.steps .num { margin-bottom: 0; grid-row: span 2; align-self: start; position: relative; z-index: 1; }
+    ol.steps .name { grid-column: 2; }
+    ol.steps .desc { grid-column: 2; }
   }
 
   /* TABLES */
@@ -746,7 +745,7 @@
 
     /* Brighter, thicker progress bar on mobile */
     .progress { height: 3px; }
-    .progress > i { background: var(--dim); }
+    .progress > i { background: rgba(80,140,255,0.9); }
 
     /* More air between stacked elements */
     .stack > * + * { margin-top: clamp(18px, 3.6vw, 26px); }
