@@ -378,6 +378,14 @@
     margin: 0 auto clamp(18px, 2.4vw, 32px);
   }
 
+  .bulb-anim {
+    width: clamp(48px, 5.5vw, 80px);
+    height: auto;
+    color: var(--text);
+    display: block;
+    margin: 0 auto clamp(18px, 2.4vw, 32px);
+  }
+
   /* ANIMATED HOURGLASS */
   .hg-anim {
     width: clamp(56px, 6vw, 92px);
@@ -1163,10 +1171,21 @@
 
   <!-- 2 — What if it just got handled? -->
   <section class="slide" data-slide>
-    <div class="slide-inner stack">
-      <h2>What if it just got handled?</h2>
-      <p>Quietly, in the background, without you chasing anyone. The work gets done, the cost drops, and you finally get to spend your attention where it actually pays off.</p>
-      <p>That&rsquo;s a Digital Employee.</p>
+    <div class="slide-inner center stack">
+      <svg class="bulb-anim" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M32 4a22 22 0 0 1 13 40c-2.5 2.8-4 6.2-4 10v2H23v-2c0-3.8-1.5-7.2-4-10A22 22 0 0 1 32 4z">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+        </path>
+        <line x1="23" y1="62" x2="41" y2="62"/>
+        <line x1="25" y1="68" x2="39" y2="68"/>
+        <line x1="28" y1="74" x2="36" y2="74"/>
+        <circle cx="32" cy="30" r="6" stroke-width="2" fill="none">
+          <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+      <p class="hook">What if it just got handled?</p>
+      <p>Quietly, in the background, without you chasing anyone. The work gets done, the cost drops, and you finally spend your attention where it actually pays off. That&rsquo;s a Digital Employee.</p>
     </div>
   </section>
 
