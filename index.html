@@ -7,6 +7,10 @@
 <meta name="color-scheme" content="dark">
 <title>Digital Employees — MLDI</title>
 <style>
+  @property --a1{syntax:'<angle>';initial-value:0deg;inherits:false}
+  @property --a2{syntax:'<angle>';initial-value:60deg;inherits:false}
+  @property --a3{syntax:'<angle>';initial-value:120deg;inherits:false}
+
   :root {
     --bg: #0d0c0b;
     --text: #f5f2ef;
@@ -212,34 +216,67 @@
   }
   .bg-halftone.bottom { bottom: 0; }
   .bg-halftone.top { top: 0; }
-  .cover > .aurora-bottom {
-    height: 80%;
-    opacity: 1.8;
-    animation: aurora-drift 10s linear infinite, aurora-breathe 3.5s ease-in-out infinite;
+  .cover .aurora-borealis {
+    position: absolute; inset: 0;
+    overflow: hidden;
+    filter: blur(60px);
+    opacity: .75;
+    animation: auroraPulse 12s ease-in-out infinite alternate;
   }
-  .cover > .aurora-bottom::after {
-    animation: aurora-drift-inner 7s linear infinite reverse, aurora-pulse 4.5s ease-in-out infinite;
+  @keyframes auroraPulse {
+    0%   { opacity: .6;  filter: blur(60px); }
+    50%  { opacity: .85; filter: blur(50px); }
+    100% { opacity: .65; filter: blur(70px); }
   }
-  @keyframes aurora-drift {
-    0%   { transform: translateX(0)   rotate(0deg); }
-    100% { transform: translateX(-6%) rotate(2deg); }
+  .cover .aurora-band {
+    position: absolute;
+    width: 200%;
+    left: -50%;
+    border-radius: 50%;
+    transform-origin: center center;
   }
-  @keyframes aurora-breathe {
-    0%   { filter: blur(35px); opacity: 1.8; }
-    30%  { filter: blur(28px); opacity: 2;   }
-    60%  { filter: blur(42px); opacity: 1.5; }
-    100% { filter: blur(35px); opacity: 1.8; }
+  .cover .aurora-band-1 {
+    height: 55vh;
+    top: -10vh;
+    background: conic-gradient(from var(--a1) at 40% 60%,
+      transparent 0%,
+      rgba(0,255,200,.5) 15%,
+      rgba(0,170,255,.4) 30%,
+      transparent 45%,
+      rgba(170,68,255,.3) 60%,
+      transparent 75%
+    );
+    animation: band1 18s linear infinite;
   }
-  @keyframes aurora-drift-inner {
-    0%   { transform: translateX(0)  skewX(0deg); }
-    100% { transform: translateX(8%) skewX(1.5deg); }
+  @keyframes band1 { to { --a1: 360deg; } }
+  .cover .aurora-band-2 {
+    height: 60vh;
+    top: 5vh;
+    background: conic-gradient(from var(--a2) at 60% 40%,
+      transparent 0%,
+      rgba(255,102,170,.4) 10%,
+      rgba(0,255,200,.3) 25%,
+      transparent 40%,
+      rgba(0,170,255,.5) 55%,
+      transparent 70%
+    );
+    animation: band2 24s linear infinite reverse;
   }
-  @keyframes aurora-pulse {
-    0%   { opacity: 1;    }
-    40%  { opacity: 0.7;  }
-    70%  { opacity: 1.15; }
-    100% { opacity: 1;    }
+  @keyframes band2 { to { --a2: 420deg; } }
+  .cover .aurora-band-3 {
+    height: 50vh;
+    top: -5vh;
+    background: conic-gradient(from var(--a3) at 30% 70%,
+      transparent 0%,
+      rgba(68,255,170,.4) 20%,
+      transparent 35%,
+      rgba(255,102,170,.3) 50%,
+      rgba(170,68,255,.4) 65%,
+      transparent 80%
+    );
+    animation: band3 20s linear infinite;
   }
+  @keyframes band3 { to { --a3: 480deg; } }
   .cover .slide-inner { position: relative; z-index: 1; }
   .cover .tag {
     color: var(--muted);
@@ -1065,7 +1102,11 @@
 
   <!-- 0 — Cover -->
   <section class="slide cover" data-slide>
-    <div class="aurora-bottom" aria-hidden="true"></div>
+    <div class="aurora-borealis" aria-hidden="true">
+      <div class="aurora-band aurora-band-1"></div>
+      <div class="aurora-band aurora-band-2"></div>
+      <div class="aurora-band aurora-band-3"></div>
+    </div>
     <div class="slide-inner center stack">
       <img class="mlc-mark" src="assets/mldi-logo.svg" alt="MLDI">
       <h1>Free your team from the repetitive work they&rsquo;re stuck on.</h1>
