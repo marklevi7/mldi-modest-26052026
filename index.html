@@ -216,7 +216,7 @@
   }
   .bg-halftone.bottom { bottom: 0; }
   .bg-halftone.top { top: 0; }
-  .cover .aurora-borealis {
+  .aurora-borealis {
     position: absolute; inset: 0;
     overflow: hidden;
     filter: blur(60px);
@@ -228,14 +228,14 @@
     50%  { opacity: .85; filter: blur(50px); }
     100% { opacity: .65; filter: blur(70px); }
   }
-  .cover .aurora-band {
+  .aurora-band {
     position: absolute;
     width: 200%;
     left: -50%;
     border-radius: 50%;
     transform-origin: center center;
   }
-  .cover .aurora-band-1 {
+  .aurora-band-1 {
     height: 55vh;
     top: -10vh;
     background: conic-gradient(from var(--a1) at 40% 60%,
@@ -249,7 +249,7 @@
     animation: band1 18s linear infinite;
   }
   @keyframes band1 { to { --a1: 360deg; } }
-  .cover .aurora-band-2 {
+  .aurora-band-2 {
     height: 60vh;
     top: 5vh;
     background: conic-gradient(from var(--a2) at 60% 40%,
@@ -263,7 +263,7 @@
     animation: band2 24s linear infinite reverse;
   }
   @keyframes band2 { to { --a2: 420deg; } }
-  .cover .aurora-band-3 {
+  .aurora-band-3 {
     height: 50vh;
     top: -5vh;
     background: conic-gradient(from var(--a3) at 30% 70%,
@@ -1458,6 +1458,11 @@
   <!-- 23 — Close -->
   <section class="slide close" data-slide>
     <div class="aurora-bottom" aria-hidden="true"></div>
+    <div class="aurora-borealis" aria-hidden="true" style="opacity:.5">
+      <div class="aurora-band aurora-band-1"></div>
+      <div class="aurora-band aurora-band-2"></div>
+      <div class="aurora-band aurora-band-3"></div>
+    </div>
     <div class="slide-inner center stack">
       <h2>Let&rsquo;s build your first one.</h2>
       <p class="lead">Your first Digital Employee<br>can be live in&nbsp;30&nbsp;days.</p>
