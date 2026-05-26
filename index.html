@@ -829,13 +829,6 @@
     50%  { opacity: .9; transform: scale(1.05); }
     100% { opacity: .6; transform: scale(1.02); }
   }
-  @media (max-width: 760px) {
-    .slide.cover { padding: 0 32px; align-items: center; }
-    .cover .stack > * + * { margin-top: clamp(28px, 6vh, 48px); }
-    .cover .mlc-mark { width: clamp(80px, 22vw, 140px); }
-    .cover h1 { font-size: clamp(26px, 6.5vw, 44px); line-height: 1.2; max-width: 14ch; }
-    .cover .tag { margin-top: clamp(24px, 5vh, 40px); letter-spacing: 0.18em; font-size: 11px; }
-  }
   @media (prefers-reduced-motion: reduce) {
     .slide, .progress > i { transition: none; }
   }
