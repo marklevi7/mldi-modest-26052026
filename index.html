@@ -287,6 +287,24 @@
     margin-top: clamp(28px, 4vw, 48px);
   }
 
+  .split-slide {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(32px, 4vw, 64px);
+    align-items: center;
+  }
+  .split-slide.reverse {
+    grid-template-columns: 1fr auto;
+    text-align: right;
+  }
+  .split-slide.reverse .split-icon { order: 2; }
+  .split-slide .split-text > * + * { margin-top: clamp(16px, 2vw, 28px); }
+  @media (max-width: 760px) {
+    .split-slide, .split-slide.reverse { grid-template-columns: 1fr; text-align: center; }
+    .split-slide .split-icon { margin: 0 auto; }
+    .split-slide.reverse .split-icon { order: 0; }
+  }
+
   /* HOOK */
   .hook {
     font-size: clamp(28px, 5.4vw, 72px);
@@ -375,7 +393,6 @@
     height: clamp(56px, 6vw, 92px);
     color: var(--text);
     display: block;
-    margin: 0 auto clamp(18px, 2.4vw, 32px);
   }
 
   .bulb-anim {
@@ -383,7 +400,6 @@
     height: auto;
     color: var(--text);
     display: block;
-    margin: 0 auto clamp(18px, 2.4vw, 32px);
   }
 
   /* ANIMATED HOURGLASS */
@@ -1153,39 +1169,47 @@
 
   <!-- 1 — Your team burns hours on it -->
   <section class="slide" data-slide>
-    <div class="slide-inner center stack">
-      <svg class="clock-anim" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
-        <circle cx="50" cy="50" r="42" stroke-width="5"/>
-        <circle cx="50" cy="50" r="3" fill="currentColor" stroke="none"/>
-        <line x1="50" y1="50" x2="50" y2="22" stroke-width="4">
-          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1.2s" repeatCount="indefinite"/>
-        </line>
-        <line x1="50" y1="50" x2="50" y2="32" stroke-width="6">
-          <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="14.4s" repeatCount="indefinite"/>
-        </line>
-      </svg>
-      <p class="hook">Your team burns hours on it. You burn money on it.</p>
-      <p>Writing content. Chasing leads. Checking contracts. The same repetitive work, every week, costing you both ways.</p>
+    <div class="slide-inner split-slide">
+      <div class="split-icon">
+        <svg class="clock-anim" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true">
+          <circle cx="50" cy="50" r="42" stroke-width="5"/>
+          <circle cx="50" cy="50" r="3" fill="currentColor" stroke="none"/>
+          <line x1="50" y1="50" x2="50" y2="22" stroke-width="4">
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="1.2s" repeatCount="indefinite"/>
+          </line>
+          <line x1="50" y1="50" x2="50" y2="32" stroke-width="6">
+            <animateTransform attributeName="transform" type="rotate" from="0 50 50" to="360 50 50" dur="14.4s" repeatCount="indefinite"/>
+          </line>
+        </svg>
+      </div>
+      <div class="split-text">
+        <p class="hook">Your team burns hours on it. You burn money on it.</p>
+        <p>Writing content. Chasing leads. Checking contracts. The same repetitive work, every week, costing you both ways.</p>
+      </div>
     </div>
   </section>
 
   <!-- 2 — What if it just got handled? -->
   <section class="slide" data-slide>
-    <div class="slide-inner center stack">
-      <svg class="bulb-anim" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M32 4a22 22 0 0 1 13 40c-2.5 2.8-4 6.2-4 10v2H23v-2c0-3.8-1.5-7.2-4-10A22 22 0 0 1 32 4z">
-          <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
-        </path>
-        <line x1="23" y1="62" x2="41" y2="62"/>
-        <line x1="25" y1="68" x2="39" y2="68"/>
-        <line x1="28" y1="74" x2="36" y2="74"/>
-        <circle cx="32" cy="30" r="6" stroke-width="2" fill="none">
-          <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
-        </circle>
-      </svg>
-      <p class="hook">What if it just got handled?</p>
-      <p>Quietly, in the background, without you chasing anyone. The work gets done, the cost drops, and you finally spend your attention where it actually pays off. That&rsquo;s a Digital Employee.</p>
+    <div class="slide-inner split-slide reverse">
+      <div class="split-text">
+        <p class="hook">What if it just got handled?</p>
+        <p>Quietly, in the background, without you chasing anyone. The work gets done, the cost drops, and you finally spend your attention where it actually pays off. That&rsquo;s a Digital Employee.</p>
+      </div>
+      <div class="split-icon">
+        <svg class="bulb-anim" viewBox="0 0 64 80" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M32 4a22 22 0 0 1 13 40c-2.5 2.8-4 6.2-4 10v2H23v-2c0-3.8-1.5-7.2-4-10A22 22 0 0 1 32 4z">
+            <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+          </path>
+          <line x1="23" y1="62" x2="41" y2="62"/>
+          <line x1="25" y1="68" x2="39" y2="68"/>
+          <line x1="28" y1="74" x2="36" y2="74"/>
+          <circle cx="32" cy="30" r="6" stroke-width="2" fill="none">
+            <animate attributeName="r" values="6;8;6" dur="3s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;0.8;0.3" dur="3s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+      </div>
     </div>
   </section>
 
